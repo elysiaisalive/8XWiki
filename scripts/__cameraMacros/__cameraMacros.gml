@@ -4,5 +4,10 @@ enum RES_MODE {
 	BORDERLESS
 }
 
+#macro __MAX_CAMS 8
+#macro __GAME_WIDTH 480
+#macro __GAME_HEIGHT 270
+#macro __CAM_DEBUG true
+
 globalvar __WINDOW_MODE;
 __WINDOW_MODE = RES_MODE.FULLSCREEN;
