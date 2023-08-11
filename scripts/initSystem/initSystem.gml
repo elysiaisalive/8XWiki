@@ -1,0 +1,2 @@
+initResolutionManager();
+initEventHandler();
