@@ -9,7 +9,7 @@ function initWindow() {
 			window_set_fullscreen( false );
 			window_set_size( display_get_width(), display_get_height() );
 			window_set_position( 0, 0 );
-			window_set_showborder( true );
+			window_set_showborder( false );
 			break;
 		case RES_MODE.BORDERLESS:
 			window_set_fullscreen( true );

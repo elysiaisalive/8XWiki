@@ -1,4 +1,4 @@
-__resManager.Tick();
+__resManager.Update();
 
 switch( keyboard_lastchar ) {
     case 0 :
@@ -11,4 +11,8 @@ switch( keyboard_lastchar ) {
         __resManager.ChangeResMode( RES_MODE.BORDERLESS );
         break;
 
+}
+
+if ( !is_undefined( global.camera ) ) {
+    global.camera.Update();
 }
