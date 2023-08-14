@@ -49,6 +49,7 @@
     {"id":{"name":"__frameMacros","path":"scripts/__frameMacros/__frameMacros.yy",},},
     {"id":{"name":"cAnimation","path":"scripts/cAnimation/cAnimation.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"cGUIController","path":"scripts/cGUIController/cGUIController.yy",},"order":0,},
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},

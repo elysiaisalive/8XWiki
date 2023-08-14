@@ -18,6 +18,7 @@
     {"name":"__cameraMacros","order":1,"path":"scripts/__cameraMacros/__cameraMacros.yy",},
     {"name":"__initFilePaths","order":8,"path":"scripts/__initFilePaths/__initFilePaths.yy",},
     {"name":"cResolutionManager","order":4,"path":"scripts/cResolutionManager/cResolutionManager.yy",},
+    {"name":"cGUIController","path":"scripts/cGUIController/cGUIController.yy","order":0,},
     {"name":"initGlobalAnimMap","order":2,"path":"scripts/initGlobalAnimMap/initGlobalAnimMap.yy",},
     {"name":"__initGlobalFlags","order":1,"path":"scripts/__initGlobalFlags/__initGlobalFlags.yy",},
     {"name":"__frameMacros","order":3,"path":"scripts/__frameMacros/__frameMacros.yy",},
