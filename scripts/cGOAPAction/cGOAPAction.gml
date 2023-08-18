@@ -18,20 +18,14 @@ function cGOAPAction() constructor {
     
     static SetCost = function( _cost = 0 ) {
         cost = _cost;
-    } 
+    }
     
     static AddPrecondition = function( label, state ) {
-        preconditions = new {
-            label,
-            state
-        }
+        preconditions[$ label] ??= { state };
     }
     
     static AddEffect = function( label, state ) {
-        effects = new {
-            label,
-            state
-        }
+        effects[$ label] ??= { state };
     }
     
     static CheckPrecondition = function() {};
