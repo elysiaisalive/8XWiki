@@ -15,6 +15,7 @@
   "ResourceOrderSettings": [
     {"name":"objGOAPGuy","order":2,"path":"objects/objGOAPGuy/objGOAPGuy.yy",},
     {"name":"cCamera","order":2,"path":"scripts/cCamera/cCamera.yy",},
+    {"name":"console","order":1,"path":"scripts/console/console.yy",},
     {"name":"initWindow","order":3,"path":"scripts/initWindow/initWindow.yy",},
     {"name":"initSystem","order":11,"path":"scripts/initSystem/initSystem.yy",},
     {"name":"objCat","order":1,"path":"objects/objCat/objCat.yy",},
@@ -25,6 +26,7 @@
     {"name":"initGlobalAnimMap","order":2,"path":"scripts/initGlobalAnimMap/initGlobalAnimMap.yy",},
     {"name":"__initGlobalFlags","order":1,"path":"scripts/__initGlobalFlags/__initGlobalFlags.yy",},
     {"name":"__frameMacros","order":3,"path":"scripts/__frameMacros/__frameMacros.yy",},
+    {"name":"sprTile","order":2,"path":"sprites/sprTile/sprTile.yy",},
     {"name":"cAnimation","order":1,"path":"scripts/cAnimation/cAnimation.yy",},
   ],
 }

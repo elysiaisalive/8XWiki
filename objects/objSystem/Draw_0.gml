@@ -1,6 +1,5 @@
 if ( !is_undefined( global.camera ) ) {
     global.camera.DrawDebug();
-    global.camera.Render();
 }
 
 draw_set_color( c_lime );

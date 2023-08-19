@@ -14,5 +14,5 @@ switch( keyboard_lastchar ) {
 }
 
 if ( !is_undefined( global.camera ) ) {
-    global.camera.Update();
+    global.camera.Tick();
 }
