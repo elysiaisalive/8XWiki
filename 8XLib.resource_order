@@ -24,9 +24,11 @@
     {"name":"__initFilePaths","order":10,"path":"scripts/__initFilePaths/__initFilePaths.yy",},
     {"name":"cResolutionManager","order":4,"path":"scripts/cResolutionManager/cResolutionManager.yy",},
     {"name":"initGlobalAnimMap","order":2,"path":"scripts/initGlobalAnimMap/initGlobalAnimMap.yy",},
+    {"name":"tileTile","order":3,"path":"tilesets/tileTile/tileTile.yy",},
     {"name":"__initGlobalFlags","order":1,"path":"scripts/__initGlobalFlags/__initGlobalFlags.yy",},
     {"name":"__frameMacros","order":3,"path":"scripts/__frameMacros/__frameMacros.yy",},
     {"name":"sprTile","order":2,"path":"sprites/sprTile/sprTile.yy",},
     {"name":"cAnimation","order":1,"path":"scripts/cAnimation/cAnimation.yy",},
+    {"name":"objHeart","order":3,"path":"objects/objHeart/objHeart.yy",},
   ],
 }

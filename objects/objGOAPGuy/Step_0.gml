@@ -1,3 +1,4 @@
+
 x = transform.position.x;
 y = transform.position.y;
 image_angle = transform.rotation;
@@ -13,12 +14,16 @@ else {
     image_index -= animSpd;
 }
 
-if ( mouse_check_button( mb_left ) ) {
+if ( mouse_check_button( mb_right ) ) {
     var target_pos = new Vector3( mouse_x, mouse_y, 0 );
     
     transform.position.x = target_pos.x;
     transform.position.y = target_pos.y;
 }
 
-// transform.position.x += dsin( transform.rotation ) * animSpd;
-// transform.position.y -= dcos( transform.rotation ) * animSpd;
+if ( mouse_wheel_up() ) {
+    transform.position.z += 0.5;
+}
+if ( mouse_wheel_down() ) {
+    transform.position.z -= 0.5;
+}

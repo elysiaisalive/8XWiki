@@ -53,11 +53,13 @@
     {"id":{"name":"cEventHandler","path":"scripts/cEventHandler/cEventHandler.yy",},},
     {"id":{"name":"__globalFlags","path":"scripts/__globalFlags/__globalFlags.yy",},},
     {"id":{"name":"initGlobalAnimMap","path":"scripts/initGlobalAnimMap/initGlobalAnimMap.yy",},},
+    {"id":{"name":"tileTile","path":"tilesets/tileTile/tileTile.yy",},},
     {"id":{"name":"__initGlobalFlags","path":"scripts/__initGlobalFlags/__initGlobalFlags.yy",},},
     {"id":{"name":"__frameMacros","path":"scripts/__frameMacros/__frameMacros.yy",},},
     {"id":{"name":"sprTile","path":"sprites/sprTile/sprTile.yy",},},
     {"id":{"name":"cAnimation","path":"scripts/cAnimation/cAnimation.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"objHeart","path":"objects/objHeart/objHeart.yy",},},
     {"id":{"name":"cGUIController","path":"scripts/cGUIController/cGUIController.yy",},},
   ],
   "RoomOrderNodes": [

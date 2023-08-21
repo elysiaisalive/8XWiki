@@ -9,6 +9,12 @@ switch( keyboard_lastchar ) {
         break;  
     case 2 :
         __resManager.ChangeResMode( RES_MODE.BORDERLESS );
+        break;    
+    case 3 :
+        global.camera.ClearFocus();
+        break;    
+    case 4 :
+        global.camera.SetFocusPositionAligned( mouse_x, mouse_y, 0, 0 );
         break;
 
 }
