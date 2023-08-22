@@ -77,7 +77,7 @@ function cConsole() constructor {
         var help = new cCommand();
         help.label = "help";
         help.usageTip = "help <command_ref>   Prints a list of all available commands or the usage of a command.";
-        help.SetArguments( "_command_ref" );
+        help.SetArguments( "<_command_ref>" );
         help.func = function() {
             struct_foreach( registeredCommands, function( i ) {
                 var _help_str = string( i.label + i.usageTip );
@@ -86,7 +86,16 @@ function cConsole() constructor {
             } );
         }
         
+        var get_val = new cCommand();
+        get_val.label = "get_val";
+        get_val.usageTip = "get_val <value>   Gets a value from a reference";
+        get_val.SetArguments( "<reference>" );
+        get_val.func = function() {
+            PushMessage( 0, true );
+        }
+        
         RegisterCommand( help );
+        RegisterCommand( get_val );
     }
     
     static SubmitCommand = function( command_string ) {
@@ -94,38 +103,34 @@ function cConsole() constructor {
     }
     
     static PushMessage = function( msg, ignore_history = false ) {
-        /* 
-            BUG:
-                Filtered messages do not get pushed.
-        */
         var _message = string_lower( msg );
         var _regex = string_split( consoleRegex, "" );
         var _filtered_msg = string( "" );
         
-        for( var i = 1; i <= array_length( _message ); ++i ) {
+        for( var i = 1; i <= string_length( _message ); ++i ) {
             var _char = string_char_at( _message, i );
             
-            if ( string_pos( _char, _regex ) > 0 ) {
+            if ( string_pos( _char, _regex ) > 1 ) {
                 _filtered_msg += _char;
             }
         }
         
-        if ( string_length( _message ) > 0 ) {
+        if ( string_length( _filtered_msg ) > 1 ) {
             if ( array_length( consoleLog ) < consoleMaxLog ) {
-                array_push( consoleLog, _message );
+                array_push( consoleLog, _filtered_msg );
                 
                 if ( !ignore_history ) {
-                    array_push( consoleHistory, _message ); 
+                    array_push( consoleHistory, _filtered_msg ); 
                 }
             }
             else {
                 // Shift the array if the log and history are full.
                 array_shift( consoleLog );
-                array_push( consoleLog, _message );
+                array_push( consoleLog, _filtered_msg );
                 
                 if ( !ignore_history ) {
                     array_shift( consoleHistory );
-                    array_push( consoleHistory, _message );
+                    array_push( consoleHistory, _filtered_msg );
                 }
             }
         }
@@ -210,6 +215,8 @@ function cConsole() constructor {
                 case vk_rshift:
                 case vk_backspace:
                 case vk_enter:
+                case vk_end:
+                case vk_printscreen:
                 case 91:// L Windows Key
                 case 92:// R Windows Key
                 case 20:// CAPS
