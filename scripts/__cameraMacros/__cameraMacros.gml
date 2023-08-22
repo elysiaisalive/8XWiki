@@ -12,14 +12,6 @@ enum CAM_ALIGN {
 	MIDDLE = 5 << 0
 }
 
-// enum CAM_ALIGN {
-// 	LEFT,
-// 	RIGHT,
-// 	TOP,
-// 	BOTTOM,
-// 	MIDDLE
-// }
-
 #macro __MAX_CAMS 8
 #macro __GAME_WIDTH 480
 #macro __GAME_HEIGHT 270

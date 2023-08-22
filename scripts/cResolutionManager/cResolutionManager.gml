@@ -19,6 +19,9 @@ function cResolutionManager() constructor {
 	displayCenterW = ( displayWidth / 2 ) - ( windowWidth / 2 );
 	displayCenterH = ( displayHeight / 2 ) - ( windowHeight / 2 );
 	
+	windowCenterW = ( windowWidth / 2 );
+	windowCenterH = ( windowHeight / 2 );
+	
 	aspectRatio = gameResWidth / gameResHeight;
 	
 	// Used for updating res and variables when a change to the game window is made e.x resizing
