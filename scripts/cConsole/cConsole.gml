@@ -5,7 +5,7 @@ function cConsole() constructor {
     consoleWidth = __resManager.windowWidth;
     consoleHeight = 64;
     consoleDefaultHeight = consoleHeight;
-    consoleFullScreenHeight = 270 - 8;
+    consoleFullScreenHeight = 270 - 5;
     consoleRevealSpd = 0.075;
     consoleX = 0;
     consoleY = 0;
@@ -16,6 +16,16 @@ function cConsole() constructor {
     consoleHistory = [];
     consoleHistorySelect = 0;
     
+    // Drawing
+    consoleOpacity = 1;
+    consoleTextColour = #62beff;
+    consoleBGColour = new Vector2( #272B33, #11131c );
+    //consoleBGColour = #272B33;
+    //consoleTypeFieldColour = consoleBGColour;
+    consoleTypeFieldColour = consoleBGColour.x;
+    consoleTypeFieldHighlightColour = #62beff;
+    //
+    
     consoleTextScale = 0.050;
     consoleOnscreenX = 0;
     consoleOnscreenY = 0;   
@@ -23,10 +33,12 @@ function cConsole() constructor {
     consoleOffScreenY = ( -__resManager.windowHeight / 8 ) - ( consoleFullScreenHeight );
     
     consoleRegex = "abcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]12345678910 ";
+    consoleSuggestions = [];
     
     cursorCharacter = "_";
     cursorBlinkTimer = new cTimer( 60 * 3, true );
     
+    typingFieldHoveredChar = 0;
     typingFieldWidth = consoleWidth;
     typingFieldHeight = 4;
     typingFieldMaxLength = 1024;
@@ -40,6 +52,7 @@ function cConsole() constructor {
     consoleY = consoleOffScreenY;
     
     Init();
+    SetMaximize();
     
     // Hello World!
     static Init = function() {
@@ -218,14 +231,19 @@ function cConsole() constructor {
     // For use in DRAW_GUI event
     static Draw = function() {
         display_set_gui_size( __GAME_WIDTH, __GAME_HEIGHT );
-        draw_set_color( c_black );
-        draw_rectangle( consoleX, consoleY, consoleX + consoleWidth, consoleY + consoleHeight, false );
+        //draw_set_color( consoleBGColour );
+        //draw_rectangle_color( consoleX, consoleY, consoleX + consoleWidth, consoleY + consoleHeight, false );
+        
+        draw_set_alpha( consoleOpacity );
+        
+        // Using Vectors as color inputs
+        draw_rectangle_color( consoleX, consoleY, consoleX + consoleWidth, consoleY + consoleHeight, consoleBGColour.x, consoleBGColour.y, consoleBGColour.x, consoleBGColour.y, false );
         
         // Highlight
-        draw_set_color( c_black );
+        draw_set_color( consoleTypeFieldColour );
         draw_rectangle( consoleX, consoleY + consoleHeight, consoleX + typingFieldWidth, ( consoleY + consoleHeight ) + typingFieldHeight, false );
         
-        draw_set_color( c_white );
+        draw_set_color( consoleTypeFieldHighlightColour );
         draw_rectangle( consoleX - 1, consoleY + consoleHeight, consoleX + consoleWidth, ( consoleY + consoleHeight ) + typingFieldHeight, true );
         
         // Drawing console messages
@@ -233,6 +251,7 @@ function cConsole() constructor {
         draw_set_halign( fa_left );
         draw_set_valign( fa_middle );
         
+        draw_set_color( consoleTextColour );
         // Console History / Prints
         if ( array_length( consoleLog ) > 0 ) {
             for( var i = 0; i < array_length( consoleLog ); ++i ) {

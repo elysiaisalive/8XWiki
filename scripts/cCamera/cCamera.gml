@@ -170,8 +170,6 @@ function cCamera() constructor {
 		var _y = camera_get_view_y( camera );
 		
 		draw_set_color( c_lime );
-		draw_circle( _x, _y, 32, true );
-		
 		draw_circle( _x + _center_pos.x, _y + _center_pos.y, 2, false );
 		draw_text( _x + _center_pos.x, _y + _center_pos.y + 8, "Camera Center" );
 		draw_set_color( c_white );
