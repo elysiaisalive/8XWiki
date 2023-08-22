@@ -1,16 +1,15 @@
 function cConsole() constructor {
     enabled = false;
     registeredCommands = {};
-    
-    RegisterDefaultCommands();
 
     consoleWidth = __resManager.windowWidth;
-    consoleHeight = 48;
+    consoleHeight = 64;
+    consoleDefaultHeight = consoleHeight;
+    consoleFullScreenHeight = 270 - 8;
     consoleRevealSpd = 0.075;
     consoleX = 0;
     consoleY = 0;
     
-    consoleHistoryEnabled = true;
     consoleMaxLog = 256;
     consoleLog = [];
     consoleMaxHistory = 64;
@@ -21,7 +20,7 @@ function cConsole() constructor {
     consoleOnscreenX = 0;
     consoleOnscreenY = 0;   
     consoleOffScreenX = 0;
-    consoleOffScreenY = -__resManager.windowHeight / 8;
+    consoleOffScreenY = ( -__resManager.windowHeight / 8 ) - ( consoleFullScreenHeight );
     
     consoleRegex = "abcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]12345678910 ";
     
@@ -40,17 +39,52 @@ function cConsole() constructor {
     consoleX = consoleOffScreenX;
     consoleY = consoleOffScreenY;
     
+    Init();
+    
+    // Hello World!
+    static Init = function() {
+        var _welcome_str = string( "Welcome to {0}, Runtime Version {1}", game_project_name, GM_runtime_version );
+        var _date_str = string( "Built On {0}/{1}/{2}", date_get_day( GM_build_date ), date_get_month( GM_build_date ), date_get_year( GM_build_date ) );
+        var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
+        
+        RegisterDefaultCommands();
+        PushMessage( _welcome_str, true );
+        PushMessage( _date_str, true );
+        PushMessage( _compile_str, true );
+    }
+    //
+    
     static RegisterCommand = function( _command_struct = new cCommand() ) {
         registeredCommands[$ _command_struct.label] = _command_struct;
         
         show_debug_message( registeredCommands );
     };
     
+    static RegisterDefaultCommands = function() {
+        var help = new cCommand();
+        help.label = "help";
+        help.usageTip = "help <command_ref>   Prints a list of all available commands or the usage of a command.";
+        help.SetArguments( "_command_ref" );
+        help.func = function() {
+            struct_foreach( registeredCommands, function( i ) {
+                var _help_str = string( i.label + i.usageTip );
+                
+                PushMessage( _help_str, true );
+            } );
+        }
+        
+        RegisterCommand( help );
+    }
+    
     static SubmitCommand = function( command_string ) {
         // Execute command if it exists / has valid parameters, if not then throw an error in the console
     }
     
-    static PushMessage = function( msg ) {
+    static PushMessage = function( msg, ignore_history = false ) {
+        /* 
+            BUG:
+                Filtered messages do not get pushed.
+        */
         var _message = string_lower( msg );
         var _regex = string_split( consoleRegex, "" );
         var _filtered_msg = string( "" );
@@ -66,17 +100,30 @@ function cConsole() constructor {
         if ( string_length( _message ) > 0 ) {
             if ( array_length( consoleLog ) < consoleMaxLog ) {
                 array_push( consoleLog, _message );
-                array_push( consoleHistory, _message );
+                
+                if ( !ignore_history ) {
+                    array_push( consoleHistory, _message ); 
+                }
             }
             else {
                 // Shift the array if the log and history are full.
                 array_shift( consoleLog );
                 array_push( consoleLog, _message );
                 
-                array_shift( consoleHistory );
-                array_push( consoleHistory, _message );
+                if ( !ignore_history ) {
+                    array_shift( consoleHistory );
+                    array_push( consoleHistory, _message );
+                }
             }
         }
+    }
+    
+    static SetMaximize = function() {
+        consoleHeight = consoleFullScreenHeight;
+    }  
+    
+    static SetMinimized = function() {
+        consoleHeight = consoleDefaultHeight;
     }
     
     static Tick = function() {
@@ -104,14 +151,19 @@ function cConsole() constructor {
                 if ( array_length( consoleHistory ) > 0 ) {
                     var _str = string( consoleHistory[consoleHistorySelect] );
                     
-                    ++consoleHistorySelect;
                     typingField = _str;
+                    ++consoleHistorySelect;
+                    
+                    // Trim duplicates when fetching history
+                    consoleHistory = array_unique( consoleHistory );
+                    
+                    if ( consoleHistorySelect > array_length( consoleHistory ) - 1 ) {
+                        consoleHistorySelect = 0;
+                    }
+                    
+                    consoleHistorySelect = clamp( consoleHistorySelect, 0, consoleMaxHistory );
                 }
-                
-                if ( consoleHistorySelect >= array_length( consoleHistory ) - 1 ) {
-                    consoleHistorySelect = 0;
-                }
-            } 
+            }
             
             if ( keyboard_check_pressed( vk_backspace ) ) {
                 typingField = string_delete( typingField, string_length( typingField ), 1 );
@@ -182,13 +234,13 @@ function cConsole() constructor {
         draw_set_valign( fa_middle );
         
         // Console History / Prints
-        if ( array_length( consoleHistory ) > 0 ) {
-            for( var i = 0; i < array_length( consoleHistory ); ++i ) {
+        if ( array_length( consoleLog ) > 0 ) {
+            for( var i = 0; i < array_length( consoleLog ); ++i ) {
                 var _sep = 6;
                 var _x = typingFieldX;
                 var _y = ( typingFieldY + consoleHeight ) - typingFieldHeight - ( _sep * i );
                 
-                draw_text_transformed( _x, _y, string( consoleHistory[ array_length( consoleHistory ) - i - 1 ] ), consoleTextScale, consoleTextScale, 0 );
+                draw_text_transformed( _x, _y, string( consoleLog[ array_length( consoleLog ) - i - 1 ] ), consoleTextScale, consoleTextScale, 0 );
             }
         }
         
@@ -201,45 +253,4 @@ function cConsole() constructor {
         draw_set_font( -1 );
         draw_set_color( c_white );
     }
-    
-    static RegisterDefaultCommands = function() {
-        var _help = new cCommand();
-        _help.label = "help";
-        _help.usageTip = "help <command_ref>   Prints a list of all available commands or the usage of a command.";
-        _help.SetArguments( "_command_ref" );
-        
-        RegisterCommand( _help );
-    }
 }
-
-function cCommand() constructor {
-    label = "command";
-    shortHand = undefined;
-    arguments = [];
-    usageTip = "If you're reading this, someone forgot something!";
-    
-    static SetArguments = function() {
-        for( var i = 0; i < argument_count; ++i ) {
-            array_push( arguments, argument[i] );
-        };
-    }
-    static func = function(){};
-}
-
-/* 
-    BASIC IDEA:
-        register command - >
-            teleport() -- > arguments x, y, z. Optional arguments can be '~' so that they default to current position.
-            Teleport args = instance ref, _x, _y, _z
-            _arg < - underscore determines optional parameter
-        basic structure of a command
-        
-        -LABEL-
-        teleport[
-            -ARGUMENTS-
-            arguments[
-            ]
-            -FUNCTION-
-            function
-        ]
-*/
