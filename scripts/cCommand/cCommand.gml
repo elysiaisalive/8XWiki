@@ -1,6 +1,6 @@
 function cCommand() constructor {
     // The prefix that is typed
-    label = "command";
+    label = "";
     shortHand = undefined;
     //
     
@@ -15,5 +15,5 @@ function cCommand() constructor {
             array_push( arguments, argument[i] );
         };
     }
-    static func = function(){};
+    static Execute = function(){};
 }

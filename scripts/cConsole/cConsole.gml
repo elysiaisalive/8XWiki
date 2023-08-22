@@ -32,7 +32,7 @@ function cConsole() constructor {
     consoleOffScreenX = 0;
     consoleOffScreenY = ( -__resManager.windowHeight / 8 ) - ( consoleFullScreenHeight );
     
-    consoleRegex = "abcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]12345678910 ";
+    consoleRegex = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]12345678910 ";
     consoleSuggestions = [];
     
     cursorCharacter = "_";
@@ -61,59 +61,62 @@ function cConsole() constructor {
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         
         RegisterDefaultCommands();
-        PushMessage( _welcome_str, true );
-        PushMessage( _date_str, true );
-        PushMessage( _compile_str, true );
+        PushMessageExt( _welcome_str, true );
+        PushMessageExt( _date_str, true );
+        PushMessageExt( _compile_str, true );
     }
     //
     
     static RegisterCommand = function( _command_struct = new cCommand() ) {
-        registeredCommands[$ _command_struct.label] = _command_struct;
+        registeredCommands[$ _command_struct.label] ??= _command_struct;
         
-        show_debug_message( registeredCommands );
+        PushMessageExt( string( registeredCommands ) + "\n" );
     };
     
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
         help.usageTip = "help <command_ref>   Prints a list of all available commands or the usage of a command.";
-        help.SetArguments( "<_command_ref>" );
-        help.func = function() {
+        help.SetArguments( "<command_ref>" );
+        help.Execute = function() {
             struct_foreach( registeredCommands, function( i ) {
-                var _help_str = string( i.label + i.usageTip );
+                PushMessageExt( i );
+                //var _help_str = string( i[$ help.label ] + i[$ help.label ].usageTip );
+                //__FRAME_ANIM_MAP[$ _char_key].animations[$ _anim_key];
                 
-                PushMessage( _help_str, true );
+                PushMessage( string(i), true );
             } );
         }
         
-        var get_val = new cCommand();
-        get_val.label = "get_val";
-        get_val.usageTip = "get_val <value>   Gets a value from a reference";
-        get_val.SetArguments( "<reference>" );
-        get_val.func = function() {
-            PushMessage( 0, true );
-        }
-        
         RegisterCommand( help );
-        RegisterCommand( get_val );
     }
     
     static SubmitCommand = function( command_string ) {
-        // Execute command if it exists / has valid parameters, if not then throw an error in the console
+        // Verify command can be run
+    }
+    
+    static ExecuteCommand = function( command ) {
+        
+    }
+    
+    static FilterString = function( str ) {
+        var _string = string( str );
+        var _regex = string_split( consoleRegex, "" );
+        var _filtered_str = string( "" );
+        
+        for( var i = 1; i <= string_length( _string ); ++i ) {
+            var _char = string_char_at( _string, i );
+            
+            if ( string_pos( _char, _regex ) > 1 ) {
+                _filtered_str += _char;
+            }
+        }
+        
+        return string( _filtered_str );
     }
     
     static PushMessage = function( msg, ignore_history = false ) {
-        var _message = string_lower( msg );
-        var _regex = string_split( consoleRegex, "" );
-        var _filtered_msg = string( "" );
-        
-        for( var i = 1; i <= string_length( _message ); ++i ) {
-            var _char = string_char_at( _message, i );
-            
-            if ( string_pos( _char, _regex ) > 1 ) {
-                _filtered_msg += _char;
-            }
-        }
+        var _filtered_msg = FilterString( msg );
         
         if ( string_length( _filtered_msg ) > 1 ) {
             if ( array_length( consoleLog ) < consoleMaxLog ) {
@@ -134,6 +137,13 @@ function cConsole() constructor {
                 }
             }
         }
+    }
+    
+    static PushMessageExt = function( msg, ignore_history = false ) {
+        var _str = FilterString( msg );
+        
+        show_debug_message( _str );
+        return PushMessage( _str, ignore_history );
     }
     
     static SetMaximize = function() {
