@@ -21,15 +21,15 @@ function cCamera() constructor {
 	zoomCurve = undefined;
 	shakeCurve = undefined;
 	
-	camScale = 1;
-	zoomLevel = 0;
 	camAngle = 0;
+	camScale = 1;
 	camMaxScale = 8;
-	camZ = -2048;
 	camFov = 90;
 	camAspectRatio = __GAME_WIDTH / __GAME_HEIGHT;
 	camVelocity = 0;
 	camApproachFactor = 0.0075;
+	
+	// TODO: Camera "nudge" variable so that the camera can always pull to a certain direction / focus
 	
 	var camX = camera_get_view_x( camera ) + camera_get_view_width( camera ) / 2;
 	var camY = camera_get_view_y( camera ) + camera_get_view_height( camera ) / 2;
@@ -72,22 +72,22 @@ function cCamera() constructor {
 		focusPosition = new Vector3( _x, _y, _z );
 	}
 	
-	static SetFocusPositionAligned = function( _x, _y, _z = 0, align ) {
+	static SetFocusPositionAligned = function( _x, _y, _z = 0, align = CAM_ALIGN.MIDDLE ) {
 		switch( align ) {
-			case 0 :// Middle
+			case CAM_ALIGN.MIDDLE :// Middle
 				focusPosition = new Vector3( _x, _y, _z );
 				break;			
-			case 1 :// Left
+			case CAM_ALIGN.LEFT :// Left
+				focusPosition = new Vector3( _x - ( camWidth / 4 ), _y, _z );
+				break;			
+			case CAM_ALIGN.RIGHT : // Right
 				focusPosition = new Vector3( _x + ( camWidth / 4 ), _y, _z );
 				break;			
-			case 2 : // Right
-				focusPosition = new Vector3( _x + ( camWidth / 2 ), _y + ( camHeight / 4 ), _z );
+			case CAM_ALIGN.TOP : // Top
+				focusPosition = new Vector3( _x, _y - ( camHeight / 4 ), _z );
 				break;			
-			case 3 : // Top
-				focusPosition = new Vector3( _x + ( camWidth / 2 ), _y - ( camHeight / 4 ), _z );
-				break;			
-			case 4 : // Bottom
-				focusPosition = new Vector3( _x + ( camWidth / 2 ), _y - ( camHeight / 4 ), _z );
+			case CAM_ALIGN.BOTTOM : // Bottom
+				focusPosition = new Vector3( _x, _y + ( camHeight / 4 ), _z );
 				break;
 		}
 	}
@@ -122,7 +122,7 @@ function cCamera() constructor {
 		if ( !is_undefined( focusPosition ) ) {
 			var _focus_dir = GetFocusDirFromCenter();
 			var _focus_dis = GetFocusDisFromCenter();
-		
+			
 			position.x += dcos( _focus_dir ) * ( camApproachFactor * _focus_dis );
 			position.y -= dsin( _focus_dir ) * ( camApproachFactor * _focus_dis );
 		}
@@ -133,25 +133,9 @@ function cCamera() constructor {
 			if ( keyboard_check( vk_shift )
 			&& mouse_check_button( mb_left ) ) {
 				var _mouse_dir = GetMouseDirFromCenter();
-				
+	
 				position.x += dcos( _mouse_dir ) * max( 3, GetMouseDisFromCenter() * 0.05 );
 				position.y -= dsin( _mouse_dir ) * max( 3, GetMouseDisFromCenter() * 0.05 );
-			}
-	
-			if ( keyboard_check_pressed( vk_down ) ) {
-				camScale -= 1;
-			}
-			
-			if ( keyboard_check_pressed( vk_up ) ) {
-				camScale += 1;
-			}
-			
-			if ( keyboard_check( vk_left ) ) {
-				camScale -= 1;
-			}
-			
-			if ( keyboard_check( vk_right ) ) {
-				camScale += 1;
 			}
 			
 			if ( mouse_wheel_up() ) {
@@ -182,16 +166,18 @@ function cCamera() constructor {
 	// Draw END
 	static DrawOverlay = function() {
 		var _center_pos = GetCameraCenter();
-		var _x = position.x;
-		var _y = position.y;
+		var _x = camera_get_view_x( camera );
+		var _y = camera_get_view_y( camera );
 		
 		draw_set_color( c_lime );
+		draw_circle( _x, _y, 32, true );
+		
 		draw_circle( _x + _center_pos.x, _y + _center_pos.y, 2, false );
 		draw_text( _x + _center_pos.x, _y + _center_pos.y + 8, "Camera Center" );
 		draw_set_color( c_white );
 		
 		draw_set_color( c_lime );
-		draw_rectangle( position.x, position.y, position.x + camWidth * camScale, position.y + camHeight * camScale, true );
+		draw_rectangle( _x, _y, _x + ( camWidth * camScale ), _y + ( camHeight * camScale ), true );
 		draw_set_color( c_white );
 	}
 	
@@ -204,7 +190,9 @@ function cCamera() constructor {
 	static Render = function() {
 		draw_clear_alpha( c_black, 0 );
 		
-		camera_set_view_size( camera, camWidth * camScale, camHeight * camScale );
+		var _center_pos = GetCameraCenter();
+		
+		camera_set_view_size( camera, ( camWidth * camScale ), ( camHeight * camScale ) );
 		camera_set_view_pos( camera, position.x, position.y );
 		
 		gpu_set_zwriteenable( true );
