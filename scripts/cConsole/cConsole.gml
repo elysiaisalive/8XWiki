@@ -52,6 +52,7 @@ function cConsole() constructor {
     consoleY = consoleOffScreenY;
     
     Init();
+    RegisterDefaultCommands();
     SetMaximize();
     
     // Hello World!
@@ -65,10 +66,14 @@ function cConsole() constructor {
         PushMessageExt( _date_str, true );
         PushMessageExt( _compile_str, true );
         PushMessageExt( _end_str, true );
-        
-        RegisterDefaultCommands();
     }
     //
+    
+    static ClearLog = function() {
+        consoleHistory = [];
+        consoleLog = [];
+        Init();
+    }
     
     /// @returns {array} [command_list] Returns an array of each command struct.
     static GetCommandList = function() {
@@ -91,7 +96,7 @@ function cConsole() constructor {
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
-        help.usageTip = "help   <command_ref>   Prints out a list of every available command.";
+        help.usageTip = "help   <command_ref>       Prints out a list of every available command.";
         help.SetArguments( "<command_ref>" );
         help.Execute = function() {
             var _command_list = GetCommandList();
@@ -103,9 +108,14 @@ function cConsole() constructor {
             for( var i = 0; i < array_length( _command_list ); ++i ) {
                 PushMessageExt( _command_list[i].usageTip, true );
             }
-            
-            _command_list = [];
         }  
+        
+        var clear_log = new cCommand();
+        clear_log.label = "clear_log";
+        clear_log.usageTip = "clear_log     Clears the console history and any currently logged info.";
+        clear_log.Execute = function() {
+            ClearLog();
+        };
         
         var playsound = new cCommand();
         playsound.label = "playsound";
@@ -114,7 +124,7 @@ function cConsole() constructor {
         playsound.Execute = function() {};
         
         RegisterCommand( help );
-        RegisterCommand();
+        RegisterCommand( clear_log );
     }
     
     /* 
