@@ -1,6 +1,6 @@
 function cCommand() constructor {
     // The prefix that is typed
-    label = "";
+    label = "command";
     shortHand = undefined;
     //
     

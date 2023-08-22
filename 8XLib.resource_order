@@ -1,7 +1,9 @@
 {
   "FolderOrderSettings": [
+    {"name":null,"path":"folders/Rooms.yy","order":1,},
     {"name":"Libraries","order":1,"path":"folders/Libraries.yy",},
     {"name":"AStar","order":9,"path":"folders/Libraries/AStar.yy",},
+    {"name":null,"path":"datafiles.yy","order":1,},
     {"name":"Audio wrappers","order":6,"path":"folders/Libraries/Audio wrappers.yy",},
     {"name":"Console","order":5,"path":"folders/Libraries/Console.yy",},
     {"name":"Global Flags","order":8,"path":"folders/Libraries/Global Flags.yy",},
@@ -10,7 +12,8 @@
     {"name":"Submarine ( Event-Based System )","order":3,"path":"folders/Libraries/Submarine ( Event-Based System ).yy",},
     {"name":"View and Res Manager","order":4,"path":"folders/Libraries/View and Res Manager.yy",},
     {"name":"Objects","order":2,"path":"folders/Objects.yy",},
-    {"name":"Sprites","order":3,"path":"folders/Sprites.yy",},
+    {"name":"Sprites","order":4,"path":"folders/Sprites.yy",},
+    {"name":"Audio","path":"folders/Audio.yy","order":2,},
   ],
   "ResourceOrderSettings": [
     {"name":"objGOAPGuy","order":2,"path":"objects/objGOAPGuy/objGOAPGuy.yy",},
@@ -18,6 +21,7 @@
     {"name":"console","order":2,"path":"scripts/console/console.yy",},
     {"name":"cCommand","path":"scripts/cCommand/cCommand.yy","order":3,},
     {"name":"__consoleMacros","path":"scripts/__consoleMacros/__consoleMacros.yy","order":4,},
+    {"name":"audTest","path":"sounds/audTest/audTest.yy","order":0,},
     {"name":"initWindow","order":3,"path":"scripts/initWindow/initWindow.yy",},
     {"name":"cTimerController","order":1,"path":"scripts/cTimerController/cTimerController.yy",},
     {"name":"initSystem","order":12,"path":"scripts/initSystem/initSystem.yy",},

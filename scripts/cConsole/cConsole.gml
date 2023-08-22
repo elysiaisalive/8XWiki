@@ -5,7 +5,7 @@ function cConsole() constructor {
     consoleWidth = __resManager.windowWidth;
     consoleHeight = 64;
     consoleDefaultHeight = consoleHeight;
-    consoleFullScreenHeight = 270 - 5;
+    consoleFullScreenHeight = 270 - 5.1;
     consoleRevealSpd = 0.075;
     consoleX = 0;
     consoleY = 0;
@@ -30,9 +30,9 @@ function cConsole() constructor {
     consoleOnscreenX = 0;
     consoleOnscreenY = 0;   
     consoleOffScreenX = 0;
-    consoleOffScreenY = ( -__resManager.windowHeight / 8 ) - ( consoleFullScreenHeight );
+    consoleOffScreenY = ( -__resManager.windowHeight / 16 ) - ( consoleFullScreenHeight );
     
-    consoleRegex = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]12345678910 ";
+    consoleRegex = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]:12345678910 ";
     consoleSuggestions = [];
     
     cursorCharacter = "_";
@@ -56,47 +56,97 @@ function cConsole() constructor {
     
     // Hello World!
     static Init = function() {
-        var _welcome_str = string( "Welcome to {0}, Runtime Version {1}", game_project_name, GM_runtime_version );
+        var _welcome_str = string( "--Welcome to {0}, Runtime Version {1}--", game_project_name, GM_runtime_version );
         var _date_str = string( "Built On {0}/{1}/{2}", date_get_day( GM_build_date ), date_get_month( GM_build_date ), date_get_year( GM_build_date ) );
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
+        var _end_str = string( "---------------------------------------------------" );
         
-        RegisterDefaultCommands();
         PushMessageExt( _welcome_str, true );
         PushMessageExt( _date_str, true );
         PushMessageExt( _compile_str, true );
+        PushMessageExt( _end_str, true );
+        
+        RegisterDefaultCommands();
     }
     //
+    
+    /// @returns {array} [command_list] Returns an array of each command struct.
+    static GetCommandList = function() {
+        var _command_names = struct_get_names( registeredCommands );
+        var _command_list = [];
+
+        for( var i = 0; i < array_length( _command_names ); ++i ) {
+            array_push( _command_list, struct_get( registeredCommands, _command_names[i] ) );
+        }
+        
+        return _command_list;
+    }
     
     static RegisterCommand = function( _command_struct = new cCommand() ) {
         registeredCommands[$ _command_struct.label] ??= _command_struct;
         
-        PushMessageExt( string( registeredCommands ) + "\n" );
+        PushMessageExt( string( "Registered New Command {0}", _command_struct.label ) );
     };
     
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
-        help.usageTip = "help <command_ref>   Prints a list of all available commands or the usage of a command.";
+        help.usageTip = "help   <command_ref>   Prints out a list of every available command.";
         help.SetArguments( "<command_ref>" );
         help.Execute = function() {
-            struct_foreach( registeredCommands, function( i ) {
-                PushMessageExt( i );
-                //var _help_str = string( i[$ help.label ] + i[$ help.label ].usageTip );
-                //__FRAME_ANIM_MAP[$ _char_key].animations[$ _anim_key];
-                
-                PushMessage( string(i), true );
-            } );
-        }
+            var _command_list = GetCommandList();
+            var _help_str = "For more information about a specific command, type help <command_name>";
+
+            PushMessageExt( "  ", true );
+            PushMessageExt( _help_str, true );
+
+            for( var i = 0; i < array_length( _command_list ); ++i ) {
+                PushMessageExt( _command_list[i].usageTip, true );
+            }
+            
+            _command_list = [];
+        }  
+        
+        var playsound = new cCommand();
+        playsound.label = "playsound";
+        playsound.usageTip = "playsound     [sound], <pitch>    Plays a sound at a specified pitch.";
+        playsound.SetArguments( "[sound]" );
+        playsound.Execute = function() {};
         
         RegisterCommand( help );
+        RegisterCommand();
     }
     
-    static SubmitCommand = function( command_string ) {
-        // Verify command can be run
-    }
+    /* 
+        TODO: 
+            Iterate over argument array and check for types
+    */
     
-    static ExecuteCommand = function( command ) {
+    static VerifyCommand = function( command_key ) {
+        var _command_list = struct_get_names( registeredCommands );
+        var _command_key = string_lower( command_key );
+        var _result = false;
         
+        for( var i = 0; i < array_length( _command_list ); ++i ) {
+            var _struct = struct_get( registeredCommands, _command_list[i] );
+            
+            if ( struct_exists( registeredCommands, command_key ) ) {
+                _result = true;
+            }
+        }
+        
+        return _result;
+    }
+    
+    static ExecuteCommand = function( command_key ) {
+        var _args = [];
+        var _converted_args = [];
+        
+        for( var i = 0; i < array_length( _args ); ++i ) {
+            array_push( _converted_args, _args[i] );
+        }
+        
+        registeredCommands[$ command_key].Execute();
     }
     
     static FilterString = function( str ) {
@@ -137,13 +187,17 @@ function cConsole() constructor {
                 }
             }
         }
+        
+        if ( VerifyCommand( _filtered_msg ) ) {
+            ExecuteCommand( _filtered_msg );
+        }
     }
     
     static PushMessageExt = function( msg, ignore_history = false ) {
         var _str = FilterString( msg );
         
         show_debug_message( _str );
-        return PushMessage( _str, ignore_history );
+        PushMessage( _str, true );
     }
     
     static SetMaximize = function() {
