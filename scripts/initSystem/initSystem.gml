@@ -3,7 +3,8 @@
 
 console();
 // Ticking the console every frame
-call_later( 1, time_source_units_frames, function(){ console().Tick(); }, true );
+// call_later( 1, time_source_units_frames, function(){ console().Tick(); }, true );
+// call_later( 1, time_source_units_frames, function(){ console().Draw(); }, true );
 
 global.camera = undefined;
 
