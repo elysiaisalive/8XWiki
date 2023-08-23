@@ -1,6 +1,10 @@
 # Contributing Code
 - [Contributing Code](#contributing-code)
 - [Code Style](#code-style)
+  - [If's and Switches](#ifs-and-switches)
+  - [Variables](#variables)
+  - [Enums and BitFlags](#enums-and-bitflags)
+  - [Functions, Constructors and Script Organization](#functions-constructors-and-script-organization)
   
 # Code Style
 Although you don't explicitly <i>need</i> to follow these guidelines, I would very much appreciate it.
