@@ -64,5 +64,5 @@ This module will feature;
 - AStar Grids
 - AStar Search
 
-# Contributing and Feature Requests
+## Contributing
 Issues, PRs, Feature Requests are all welcome!
