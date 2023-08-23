@@ -1,4 +1,4 @@
-function initResolutionManager() {
+function resolution_manager()() {
 	static sClass = new cResolutionManager();
 	return sClass;
 }

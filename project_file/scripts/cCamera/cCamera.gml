@@ -213,8 +213,8 @@ function cCamera() constructor {
 			draw_text_transformed( position.x + 1, position.y, string( "Camera Resolution:{0} x {1}", _res.x, _res.y ), camScale, camScale, 0 );
 			draw_text_transformed( position.x + 1 * camScale, position.y + 20 * camScale, string( "Camera Aspect:{0}", camAspectRatio ), camScale, camScale, 0 );
 			
-			draw_text_transformed( position.x + 1 * camScale, position.y + 40 * camScale, string( "Display Resolution:{0} x {1}", __resManager.displayWidth, __resManager.displayHeight ), camScale, camScale, 0 );
-			draw_text_transformed( position.x + 1 * camScale, position.y + 60 * camScale, string( "Display Aspect:{0}", __resManager.aspectRatio ), camScale, camScale, 0 );
+			draw_text_transformed( position.x + 1 * camScale, position.y + 40 * camScale, string( "Display Resolution:{0} x {1}", resolution_manager().displayWidth, resolution_manager().displayHeight ), camScale, camScale, 0 );
+			draw_text_transformed( position.x + 1 * camScale, position.y + 60 * camScale, string( "Display Aspect:{0}", resolution_manager().aspectRatio ), camScale, camScale, 0 );
 			draw_set_color( c_white );
 			
 			draw_arrow( mouse_x, mouse_y, mouse_x + lengthdir_x( 16, GetMouseDirFromCenter() ), mouse_y + lengthdir_y( 16, GetMouseDirFromCenter() ), 32 );
