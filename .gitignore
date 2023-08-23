@@ -1,6 +1,5 @@
 /*.resource_order
-8XLib.resource_order
-8xlib.resource_order
+*.resource_order
 datafiles/
 fonts/
 objects/
