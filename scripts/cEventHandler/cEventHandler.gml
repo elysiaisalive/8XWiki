@@ -1,8 +1,3 @@
-function initEventHandler() {
-	static sClass = new cEventHandler();
-	return sClass;
-}
-
 /* 
 	USAGE :
 		Call the function 'initEventHandler()' to instantiate the event handler object.
@@ -79,32 +74,3 @@ function cEventHandler() constructor {
         return false;
     }
 }
-
-function eventhandler_subscribe( _id, _event_id, _func ) {
-	event_handler().Subscribe( _id, _event_id, _func );
-}
-
-function eventhandler_publish( _event_id, _data = -1 ) {
-       event_handler().Publish( _event_id, _data );
-}
-
-function eventhandler_unsubscribe( _id, _event_id ) {
-	event_handler().Unsubscribe( _id, _event_id );
-}
-
-function eventhandler_unsubscribe_all( _id ) {
-	event_handler().UnsubscribeAll( _id );
-}
-
-function test_eventhandler( _id ) {
-    show_debug_message( "Running Test..." );
-
-    eventhandler_subscribe( _id, "TestEvent", function() {
-        show_debug_message( "Subscribed event!" );
-    } );
-    
-    eventhandler_publish( "TestEvent", function() {
-        show_debug_message( "This is an event." );
-    } );
-}
-

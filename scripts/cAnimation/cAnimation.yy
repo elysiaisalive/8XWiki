@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Frame ( Animation Handler )",
-    "path": "folders/Libraries/Frame ( Animation Handler ).yy",
+    "name": "Animo ( Animation Handler )",
+    "path": "folders/Libraries/Animo ( Animation Handler ).yy",
   },
 }
