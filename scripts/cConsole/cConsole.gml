@@ -2,7 +2,7 @@ function cConsole() constructor {
     enabled = false;
     registeredCommands = {};
 
-    consoleWidth = __resManager.windowWidth;
+    consoleWidth = window_get_width();
     consoleHeight = 64;
     consoleDefaultHeight = consoleHeight;
     consoleFullScreenHeight = 270 - 5.1;
@@ -18,19 +18,17 @@ function cConsole() constructor {
     
     // Drawing
     consoleOpacity = 1;
-    consoleTextColour = #62beff;
-    consoleBGColour = new Vector2( #272B33, #11131c );
-    //consoleBGColour = #272B33;
-    //consoleTypeFieldColour = consoleBGColour;
-    consoleTypeFieldColour = consoleBGColour.x;
-    consoleTypeFieldHighlightColour = #62beff;
+    consoleTextColour = __consoleTextCol;
+    consoleBGColour = __consoleBGColours;
+    consoleTypeFieldColour = __consoleTextFieldColour;
+    consoleTypeFieldHighlightColour = __consoleTextFieldHighlightColour;
     //
     
     consoleTextScale = 0.050;
     consoleOnscreenX = 0;
     consoleOnscreenY = 0;   
     consoleOffScreenX = 0;
-    consoleOffScreenY = ( -__resManager.windowHeight / 16 ) - ( consoleFullScreenHeight );
+    consoleOffScreenY = ( -window_get_height() / 16 ) - ( consoleFullScreenHeight );
     
     consoleRegex = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_+=<>.,/\|{}[]:12345678910 ";
     consoleSuggestions = [];
@@ -57,8 +55,8 @@ function cConsole() constructor {
     
     // Hello World!
     static Init = function() {
-        var _welcome_str = string( "--Welcome to {0}, Runtime Version {1}--", game_project_name, GM_runtime_version );
-        var _date_str = string( "Built On {0}/{1}/{2}", date_get_day( GM_build_date ), date_get_month( GM_build_date ), date_get_year( GM_build_date ) );
+        var _welcome_str = string( "--Welcome to {0}, Version {1}--", game_project_name, GM_version );
+        var _date_str = string( "Built On {0}/{1}/{2}, Runtime v{3}", date_get_day( GM_build_date ), date_get_month( GM_build_date ), date_get_year( GM_build_date ), GM_runtime_version );
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         var _end_str = string( "---------------------------------------------------" );
         
