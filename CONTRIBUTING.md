@@ -66,6 +66,9 @@ There are a few odd things I do to keep things organized.
 function global_scope_function() {};
 
 // Constructor functions and Instance functions
+static myFunction = function() {};
+static func = function() {};
+
 myFunction = function() {};
 func = function() {};
 
