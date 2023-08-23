@@ -2,6 +2,7 @@
 A tiny library aimed at providing some niche functionality that you may need for your game.
 
 *List does not represent the currently released/prelease code
+
 This library is for you if you want at least one or two of these :
 - A developer console
 - A tiny timer system with the ability to control multiple timers at once
