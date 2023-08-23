@@ -67,3 +67,4 @@ This module will feature;
 
 ## Contributing
 Issues, PRs, Feature Requests are all welcome!
+[Please read the associated style-guide, while it is not a requirement it is appreciated!](https://github.com/Dappermang/8XLib/blob/release/CONTRIBUTING.md)
