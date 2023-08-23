@@ -1,4 +1,5 @@
 # Contributing Code
+
 - [Code Style](#code-style)
   - [If's and Switches](#ifs-and-switches)
   - [Variables](#variables)
