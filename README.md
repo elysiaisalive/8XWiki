@@ -29,10 +29,10 @@ Modules are marked "released" or "unreleased" depending on if they are available
 **Prerelease**
 
 This module features;
-- Timer structs
+- Timers
 - Timer Controllers
 
-Timers can be modified with a bunch of different options like randomized tick-rates, set time, callbacks etc.
+Timers are small structs that can be modified with a bunch of different options like randomized tick-rates, set time, callbacks etc.
 Timer controllers can be used to control groups of timers at once.
 
 ## Submarine
