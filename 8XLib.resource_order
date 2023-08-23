@@ -18,8 +18,8 @@
   "ResourceOrderSettings": [
     {"name":"objGOAPGuy","order":2,"path":"objects/objGOAPGuy/objGOAPGuy.yy",},
     {"name":"cCamera","order":2,"path":"scripts/cCamera/cCamera.yy",},
-    {"name":"console","order":2,"path":"scripts/console/console.yy",},
-    {"name":"cCommand","path":"scripts/cCommand/cCommand.yy","order":3,},
+    {"name":"console","order":3,"path":"scripts/console/console.yy",},
+    {"name":"cCommand","path":"scripts/cCommand/cCommand.yy","order":2,},
     {"name":"__consoleMacros","path":"scripts/__consoleMacros/__consoleMacros.yy","order":4,},
     {"name":"audTest","path":"sounds/audTest/audTest.yy","order":0,},
     {"name":"initWindow","order":3,"path":"scripts/initWindow/initWindow.yy",},
