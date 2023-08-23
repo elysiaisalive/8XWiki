@@ -18,7 +18,7 @@ Nearly everything in this repository is work-in-progress, so not every Module wi
 
 # Installation
 Here's how to install:
-1. Download the latest release/prerelease from Tags.
+1. Download the latest <link>[release or prerelease](https://github.com/Dappermang/8XLib/releases)</link>.
 2. Open GameMaker
 3. Goto Tools -> Import Local Package
 
