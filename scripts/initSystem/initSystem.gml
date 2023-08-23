@@ -1,5 +1,5 @@
 #macro __resManager initResolutionManager()
-#macro __eventHandler initEventHandler()
+#macro __eventHandler event_handler()
 
 console();
 // Ticking the console every frame
