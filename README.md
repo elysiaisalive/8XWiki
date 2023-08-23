@@ -52,6 +52,7 @@ Objects or Structs can be subscribed to an event and when an event is published,
 This module will feature;
 - Lightweight animation structs that are highly modular.
 - Globally scoped animation map that you can store individual character animations in.
+- Auto adding animations to the global map based on GameMaker's asset tags.
 - Single, Looped and Chained animation types.
 	- Single: Will only animate once.
 	- Looped: Will animate based on an amount of iterations defined.
