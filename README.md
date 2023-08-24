@@ -16,7 +16,7 @@
 # Disclaimer
 <i>This library is intended for use with GameMaker Versions 2.3.X+ Don't come crying if it doesn't work on previous versions!</i>
 
-Nearly everything in this repository is work-in-progress, so not every Module will be available yet. Feel free to contribute to make that faster!
+Nearly everything in this repository is work-in-progress and undocumented, so not every Module will be available yet. Feel free to contribute to make that faster!
 
 # Installation
 Here's how to install:
