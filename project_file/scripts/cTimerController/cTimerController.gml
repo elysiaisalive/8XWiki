@@ -1,8 +1,9 @@
 function cTimerController() constructor {
     timers = [];
     
-    // Init new timers and automatically add them
-    static Init = function() {
+    /// @desc Adds multiple new timers to the controller.
+    /// @param {struct} Struct references of the timers
+    static AddTimers = function() {
         for( var i = 0; i < argument_count; ++i ) {
             array_push( timers, argument[i] );
         }
@@ -12,15 +13,5 @@ function cTimerController() constructor {
         array_foreach( timers, function( _timer ) {
             _timer.Tick();
         });
-    }
-    
-    static GetTimers = function() {
-        var _arr = [];
-        
-        array_foreach( timers, function( _timer ) {
-            array_push( _arr, _timer );
-        });
-        
-        return _arr;
     }
 }

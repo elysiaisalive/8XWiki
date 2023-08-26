@@ -1,6 +1,9 @@
+/// @param {number}     time The timers time in seconds.
+/// @param {bool}       loop If the timer should continously reset when it reaches 0.
+/// @param {bool}       start_paused If the timer should start paused.
 function cTimer( time, _loop = false, _start_paused = false ) constructor {
     label            = "";
-    tickSpeed       = 1; // Rate at which the timer decreases
+    tickSpeed       = 1; // Rate at which the timer decreases in seconds
     setTime        = time;
     setMaxTime     = time;
     looped          = _loop;
