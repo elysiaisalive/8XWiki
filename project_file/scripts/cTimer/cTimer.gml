@@ -1,16 +1,20 @@
-function cTimer( time, loop = false, start_paused = false ) constructor {
-    name            = "";
+function cTimer( time, _loop = false, _start_paused = false ) constructor {
+    label            = "";
     tickSpeed       = 1; // Rate at which the timer decreases
     setTime        = time;
     setMaxTime     = time;
-    looped          = loop;
+    looped          = _loop;
     paused    = false;
     
-    if ( start_paused )
+    if ( _start_paused ) {
         paused = true;
+    }
     
-    static SetTime = function( new_time )
-    {
+    static GetLabel = function() {
+        return label;
+    }
+    
+    static SetTime = function( new_time ) {
         setTime = new_time;
     };
     
@@ -19,27 +23,24 @@ function cTimer( time, loop = false, start_paused = false ) constructor {
         setMaxTime = new_time;
     }
     
-    static GetTime = function()
-    {
+    static GetTime = function() {
         return setTime;
     };
     
-    static EndTimer = function()
-    {
+    static EndTimer = function() {
         SetTime( -1 );
         return true;
     };
     
-    static ResetTimer = function( _bRandomize = false, _bPause = false )
-    {
-        if ( !_bRandomize ) {
+    static ResetTimer = function( _randomize_time = false, _pause_on_reset = false ) {
+        if ( !_randomize_time ) {
             SetTime( setMaxTime );
         }
-            else {
+        else {
             SetTime( random_range( 0, setMaxTime ) );
         }
         
-        if ( _bPause ) {
+        if ( _pause_on_reset ) {
             paused = true;
         }
     };
@@ -48,40 +49,36 @@ function cTimer( time, loop = false, start_paused = false ) constructor {
         tickSpeed = _spd;
     }
     
-    static OnTimerEnd = function(){ return true; };
+    static TimerIsEnded = function(){ return true; };
     
-    static Tick = function()
-    {
-        // If tickspeed is not set, stop ticking and set tickSpeed to 1
+    static Tick = function() {
+        var _delta = ( delta_time / 1000000 );
+        
+        // If tickspeed is not set, set tickSpeed to 1
         if ( tickSpeed <= 0 ) {
             SetTickSpeed( 1 );
-            Pause();
         }
         
         if ( !paused 
         && setTime > 0
         && tickSpeed > 0 ) {
-            setTime -= tickSpeed;
+            setTime -= tickSpeed * _delta;
             
-            if ( setTime <= 0 )
-            {
-                if ( looped )
-                {
+            if ( setTime <= 0 ) {
+                TimerIsEnded();
+                
+                if ( looped ) {
                    ResetTimer(); 
                 };
-                
-               OnTimerEnd();
             };
         };
     };
     
-    static Pause = function()
-    {
+    static Pause = function() {
         paused = true;
     };   
     
-    static Unpause = function()
-    {
+    static Unpause = function() {
         paused = false;
     };
 };
