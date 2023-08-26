@@ -5,14 +5,19 @@ function cCommand() constructor {
     //
     
     // Arguments
-    arguments = [];
+    arguments = {};
     
     // Usage tip printed in console when used with the 'help' command
     usageTip = "If you're reading this, someone forgot something!";
     
+    /* 
+        Argument Syntax :
+        [required_arg]
+        <optional_arg>
+    */
     static SetArguments = function() {
         for( var i = 0; i < argument_count; ++i ) {
-            array_push( arguments, argument[i] );
+            arguments[$ i ] = argument[i];
         };
     }
     static Execute = function(){};

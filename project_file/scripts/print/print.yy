@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "cCommand",
+  "name": "print",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Console",
-    "path": "folders/Libraries/Console.yy",
+    "name": "Wrapper Functions",
+    "path": "folders/Libraries/Wrapper Functions.yy",
   },
 }

@@ -1,13 +1,10 @@
-#macro __resManager initResolutionManager()
-#macro __eventHandler event_handler()
-
 console();
-// Ticking the console every frame
-// call_later( 1, time_source_units_frames, function(){ console().Tick(); }, true );
-// call_later( 1, time_source_units_frames, function(){ console().Draw(); }, true );
+resolution_manager();
+event_handler();
 
 global.camera = undefined;
 
+// Calling resolution change 1 step later because GameMaker does not like you. >: ()
 call_later( 10, time_source_units_frames, function() {
     initWindow();
     global.camera = new cCamera();

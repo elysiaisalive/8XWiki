@@ -1,7 +1,7 @@
 globalvar __globFlags;
 __globFlags = 0;
 
-// Any flag after 8 should go up by powers of 2.
+// Any flag after 4 should go up by powers of 2.
 /* 
 	Ex:
 		FLAG = 8 << 0,

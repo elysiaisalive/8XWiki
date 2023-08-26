@@ -13,10 +13,10 @@ function globalflags_get( _flag ) {
 // Doesn't work
 function globalflags_exists( _flag ) {
     if ( __globFlags & ~_flag ) {
-        return true;
+        return false;
     }
     else {
-        return false;
+        return true;
     }
 }
 

@@ -55,7 +55,7 @@ function cConsole() constructor {
     
     // Hello World!
     static Init = function() {
-        var _welcome_str = string( "--Welcome to {0}, Version {1}--", game_project_name, GM_version );
+        var _welcome_str = string( "--Welcome to {0}, Version {1}---------------", game_project_name, GM_version );
         var _date_str = string( "Built On {0}/{1}/{2}, Runtime v{3}", date_get_day( GM_build_date ), date_get_month( GM_build_date ), date_get_year( GM_build_date ), GM_runtime_version );
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         var _end_str = string( "---------------------------------------------------" );
@@ -94,17 +94,17 @@ function cConsole() constructor {
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
-        help.usageTip = "help   <command_ref>       Prints out a list of every available command.";
+        help.usageTip = "help       Prints out a list of every available command.";
         help.SetArguments( "<command_ref>" );
         help.Execute = function() {
             var _command_list = GetCommandList();
             var _help_str = "For more information about a specific command, type help <command_name>";
 
-            PushMessageExt( "  ", true );
-            PushMessageExt( _help_str, true );
+            PushMessage( "  ", true );
+            PushMessage( _help_str, true );
 
             for( var i = 0; i < array_length( _command_list ); ++i ) {
-                PushMessageExt( _command_list[i].usageTip, true );
+                PushMessage( _command_list[i].usageTip, true );
             }
         }  
         
@@ -117,12 +117,19 @@ function cConsole() constructor {
         
         var playsound = new cCommand();
         playsound.label = "playsound";
-        playsound.usageTip = "playsound     [sound], <pitch>    Plays a sound at a specified pitch.";
-        playsound.SetArguments( "[sound]" );
-        playsound.Execute = function() {};
+        playsound.usageTip = "playsound     Plays a sound at a specified volume and pitch.";
+        playsound.SetArguments( "[sound]", "<volume>", "<pitch>" );
+        playsound.Execute = function( audio, _volume = 1, _pitch = 1 ) {
+            audio_play_sound_ext( {
+                sound : audio,
+                gain : _volume,
+                pitch : _pitch
+            } );
+        };
         
         RegisterCommand( help );
         RegisterCommand( clear_log );
+        RegisterCommand( playsound );
     }
     
     /* 
@@ -147,14 +154,11 @@ function cConsole() constructor {
     }
     
     static ExecuteCommand = function( command_key ) {
-        var _args = [];
-        var _converted_args = [];
+        // Parse through the commands arguments.
+        // Pass the converted arguments into the execution function.
+        var command = registeredCommands[$ command_key];
         
-        for( var i = 0; i < array_length( _args ); ++i ) {
-            array_push( _converted_args, _args[i] );
-        }
-        
-        registeredCommands[$ command_key].Execute();
+        command.Execute();
     }
     
     static FilterString = function( str ) {

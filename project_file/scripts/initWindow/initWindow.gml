@@ -17,5 +17,5 @@ function initWindow() {
 			break;
 	}
 	
-	__resManager.updateResolution = false;
+	resolution_manager().updateResolution = false;
 }
