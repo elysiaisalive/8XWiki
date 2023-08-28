@@ -28,7 +28,7 @@ Here's how to install:
 Modules are marked "released" or "unreleased" depending on if they are available in the GitHub release
 
 ## Clock
-**Released**
+**Released** :white_check_mark:
 
 This module features;
 - Timers
@@ -38,7 +38,7 @@ Timers are small structs that can be modified with a bunch of different options 
 Timer controllers can be used to control groups of timers at once.
 
 ## Submarine
-**Prerelease**
+**Prerelease** :hammer:
 
 This module features;
 - Event Handler
@@ -47,7 +47,7 @@ This module features;
 Objects or Structs can be subscribed to an event and when an event is published, a callback ( if defined ) will execute.
 
 ## Animo
-**Unreleased**
+**InDev** :hammer:
 
 This module will feature;
 - Lightweight animation structs that are highly modular.
@@ -59,7 +59,7 @@ This module will feature;
 	- Chained: Will animate based on iterations and switch to another defined animation once it reaches its maximum iterations.
 
 ## AStar
-**Unreleased**
+**Unreleased** :interrobang:
 
 This module will feature;
 - AStar Grids
