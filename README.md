@@ -28,7 +28,7 @@ Here's how to install:
 Modules are marked "released" or "unreleased" depending on if they are available in the GitHub release
 
 ## Clock
-**Prerelease**
+**Released**
 
 This module features;
 - Timers
