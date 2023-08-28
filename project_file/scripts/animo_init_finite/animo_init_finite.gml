@@ -1,12 +1,18 @@
-/// @param		{sprite}	_animation
-/// @param		{number}	_anim_spd
+/// @param		{sprite}	sprite
+/// @param		{number}	anim_spd
 /// @param		{number}	_start_frame
-function animation_init_finite( _animation, _anim_spd, _start_frame = 0 ) {
-    var animation = new cAnimation();
-    animation.animType = ANIMATION_TYPE.FINITE;
-    animation.sprite = _animation;
-    animation.animSpd = _anim_spd;
-    animation.animStartIndex = _start_frame;
-    
-    return animation;
+function animo_init_finite( sprite, anim_spd, _start_frame = 0 ) {
+	if ( sprite_exists( sprite ) ) {
+	    var animation = new cAnimation();
+	    animation.sprite = sprite;
+	    animation.Init();
+	    animation.animType = ANIMATION_TYPE.LOOPED;
+	    animation.animSpd = anim_spd;
+	    animation.animStartIndex = _start_frame;
+	    
+	    return animation;
+	}
+	else {
+		show_error( "Animation is not a valid sprite!", true );
+	}
 }
