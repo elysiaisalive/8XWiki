@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "cAnimation",
+  "name": "cAnimo",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

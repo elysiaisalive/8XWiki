@@ -2,34 +2,38 @@
 /// @param {bool}       loop If the timer should continously reset when it reaches 0.
 /// @param {bool}       start_paused If the timer should start paused.
 function cTimer( time, _loop = false, _start_paused = false ) constructor {
-    label            = "";
-    tickSpeed       = 1; // Rate at which the timer decreases in seconds
-    setTime        = time;
-    setMaxTime     = time;
-    looped          = _loop;
-    paused    = false;
+    self.label              = ""; // Timer labels. You can use these for debugging.
+    self.tickSpeed          = 1;
+    self.setTime            = time;
+    self.setMaxTime         = time;
+    self.looped             = _loop;
+    self.startPaused        = _start_paused;
+    self.paused             = false;
     
-    if ( _start_paused ) {
-        paused = true;
-    }
-    
+    #region Setters
     static GetLabel = function() {
-        return label;
-    }
+        return self.label;
+    }  
     
+    static GetTime = function() {
+        return self.setTime;
+    };
+    #endregion
+    #region Getters
     static SetTime = function( new_time ) {
-        setTime = new_time;
+        self.setTime = new_time;
     };
     
     static SetNewTime = function( new_time ) {
-        setTime = new_time;
-        setMaxTime = new_time;
+        self.setTime = new_time;
+        self.setMaxTime = new_time;
     }
     
-    static GetTime = function() {
-        return setTime;
-    };
-    
+    static SetTickSpeed = function( _ticks_in_seconds = 1 ) {
+        self.tickSpeed = _ticks_in_seconds;
+    }
+    #endregion
+    #region Callbacks
     static EndTimer = function() {
         SetTime( -1 );
         return true;
@@ -37,51 +41,54 @@ function cTimer( time, _loop = false, _start_paused = false ) constructor {
     
     static ResetTimer = function( _randomize_time = false, _pause_on_reset = false ) {
         if ( !_randomize_time ) {
-            SetTime( setMaxTime );
+            SetTime( self.setMaxTime );
         }
         else {
-            SetTime( random_range( 0, setMaxTime ) );
+            SetTime( random_range( 0, self.setMaxTime ) );
         }
         
         if ( _pause_on_reset ) {
-            paused = true;
+            self.paused = true;
         }
     };
     
-    static SetTickSpeed = function( _spd = 1 ) {
-        tickSpeed = _spd;
-    }
+    static OnTimerEnd = function(){};
+    #endregion
     
-    static TimerIsEnded = function(){ return true; };
+    static Pause = function() {
+        self.paused = true;
+    };   
     
+    static Unpause = function() {
+        self.paused = false;
+    };
+    
+    // Timer Logic.
     static Tick = function() {
         var _delta = ( delta_time / 1000000 );
         
-        // If tickspeed is not set, set tickSpeed to 1
-        if ( tickSpeed <= 0 ) {
+        if ( self.startPaused ) {
+            self.paused = true;
+        }
+        
+        // If tickspeed is not set, set tickSpeed to 1.
+        if ( self.tickSpeed <= 0 ) {
             SetTickSpeed( 1 );
         }
         
-        if ( !paused 
-        && setTime > 0
-        && tickSpeed > 0 ) {
-            setTime -= tickSpeed * _delta;
+        if ( !self.paused 
+        && self.setTime > 0
+        && self.tickSpeed > 0 ) {
+            self.setTime -= self.tickSpeed * _delta;
             
-            if ( setTime <= 0 ) {
-                TimerIsEnded();
+            // If timer is expired, invoke OnTimerEnd() callback and reset the timer.
+            if ( self.setTime <= 0 ) {
+                OnTimerEnd();
                 
-                if ( looped ) {
+                if ( self.looped ) {
                    ResetTimer(); 
                 };
             };
         };
-    };
-    
-    static Pause = function() {
-        paused = true;
-    };   
-    
-    static Unpause = function() {
-        paused = false;
     };
 };
