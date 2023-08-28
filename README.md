@@ -1,5 +1,5 @@
 
-<div align=center>  <h1> 8XLib v0.0.1 </h1>  </div>
+<div align=center>  <h1> 8XLib v0.1.0 </h1>  </div>
 
 # Table of Contents
 
