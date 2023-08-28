@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "initGlobalAnimMap",
+  "name": "WIP_GLOBALMAP",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

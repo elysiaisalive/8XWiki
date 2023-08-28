@@ -10,7 +10,7 @@ function animo_init_chained( sprite, end_animation, anim_spd, _repeats = -1, _st
 	    var animation = new cAnimation();
 	    animation.sprite = sprite;
 	    animation.Init();
-	    animation.animType = ANIMATION_TYPE.CHAINED;
+	    animation.animType = ANIMO_TYPE.CHAINED;
 	    animation.animSpd = anim_spd;
 	    animation.animNext = end_animation;
 		animation.animRepeats = ( _repeats != -1 ) ? _repeats : 0;

@@ -7,7 +7,7 @@ function animo_init_looped( sprite, anim_spd, _repeats = -1, _start_frame = 0 ) 
 	    var animation = new cAnimation();
 	    animation.sprite = sprite;
 	    animation.Init();
-	    animation.animType = ANIMATION_TYPE.LOOPED;
+	    animation.animType = ANIMO_TYPE.LOOPED;
 	    animation.animSpd = anim_spd;
 		animation.animRepeats = ( _repeats != -1 ) ? 0 : _repeats;
 	    animation.animStartIndex = _start_frame;

@@ -6,7 +6,7 @@ function animo_init_finite( sprite, anim_spd, _start_frame = 0 ) {
 	    var animation = new cAnimation();
 	    animation.sprite = sprite;
 	    animation.Init();
-	    animation.animType = ANIMATION_TYPE.LOOPED;
+	    animation.animType = ANIMO_TYPE.LOOPED;
 	    animation.animSpd = anim_spd;
 	    animation.animStartIndex = _start_frame;
 	    
