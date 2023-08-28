@@ -12,7 +12,7 @@ function animo_draw_sprite( animation, scope, variableName, x, y ) {
         show_error( "Animation is not a valid Animo object!", true );
     }
     
-    var index = scope[$ variableName] + animation.animSpeed;
+    scope[$ variableName] += animation.animSpeed;
     
-    draw_sprite_ext( animation.sprite, animation.frames[index][0], x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha );
+    draw_sprite_ext( animation.sprite, animation.frames[scope[$ variableName]][0], x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha );
 }

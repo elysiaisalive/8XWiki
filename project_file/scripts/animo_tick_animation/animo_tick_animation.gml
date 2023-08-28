@@ -9,8 +9,8 @@ function animo_tick_animation( animation, scope, variableName ) {
             show_error( "Animation is not a valid Animo object!", true );
         }
         
-        var index = scope[$ variableName] + animation.animSpeed;
-        console().PushMessageExt( index );
+        var index = scope[$ variableName];
+        index += animation.animSpeed;
     
         if ( floor( index ) >= array_length( animation.frames ) ) {
         switch( animation.animType ) {
