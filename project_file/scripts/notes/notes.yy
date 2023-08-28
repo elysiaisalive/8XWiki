@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "cAnimationSystem",
+  "name": "notes",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
