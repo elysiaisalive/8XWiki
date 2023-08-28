@@ -68,7 +68,7 @@ function animo_modify_animation( character_key, animation_key, properties_struct
     
     _target_anim.animType = properties_struct[$ "animType"];
     _target_anim.animStartIndex = properties_struct[$ "animStartIndex"];
-    _target_anim.animSpd = properties_struct[$ "animSpd"];
+    _target_anim.animSpeed = properties_struct[$ "animSpeed"];
     _target_anim.animRepeats = properties_struct[$ "animRepeats"];
     _target_anim.animNext = properties_struct[$ "animNext"];
     

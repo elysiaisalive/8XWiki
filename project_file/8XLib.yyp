@@ -80,7 +80,7 @@
     {"id":{"name":"event_handler_publish","path":"scripts/event_handler_publish/event_handler_publish.yy",},},
     {"id":{"name":"cTimer","path":"scripts/cTimer/cTimer.yy",},},
     {"id":{"name":"sprTile","path":"sprites/sprTile/sprTile.yy",},},
-    {"id":{"name":"cAnimation","path":"scripts/cAnimation/cAnimation.yy",},},
+    {"id":{"name":"cAnimo","path":"scripts/cAnimo/cAnimo.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"event_handler_unsubscribe","path":"scripts/event_handler_unsubscribe/event_handler_unsubscribe.yy",},},
     {"id":{"name":"objHeart","path":"objects/objHeart/objHeart.yy",},},

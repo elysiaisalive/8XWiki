@@ -1,11 +1,11 @@
-function cAnimation() constructor {
+function cAnimo() constructor {
     self.sprite = -1; // Asset index of the sprite
     self.frames = [];
     self.currentIterations = 0; // How many times we already have looped.
 	self.animRepeats = 0; // How many times we will loop.
     self.animNext = undefined; // Struct reference of next animation.
     self.animType = ANIMO_TYPE.FINITE;
-    self.animSpd = 0;
+    self.animSpeed = 0;
     self.animStartIndex = 0;
     
     // End frame defined to execute the end function. If none is defined then it will execute at the end of an animation
@@ -15,7 +15,7 @@ function cAnimation() constructor {
 	#region Getters
 	/// @static
 	static GetCurrentAnimSpeed = function() {
-		return self.animSpd;
+		return self.animSpeed;
 	}
 	#endregion
 	#region Setters

@@ -6,12 +6,12 @@
 function animo_init_chained( sprite, end_animation, anim_spd, _repeats = -1, _start_frame = 0 ) {
 	if ( sprite_exists( sprite )
 	&& is_struct( end_animation )
-	&& is_instanceof( end_animation, cAnimation ) ) {
-	    var animation = new cAnimation();
+	&& is_instanceof( end_animation, cAnimo ) ) {
+	    var animation = new cAnimo();
 	    animation.sprite = sprite;
 	    animation.Init();
 	    animation.animType = ANIMO_TYPE.CHAINED;
-	    animation.animSpd = anim_spd;
+	    animation.animSpeed = anim_spd;
 	    animation.animNext = end_animation;
 		animation.animRepeats = ( _repeats != -1 ) ? _repeats : 0;
 	    animation.animStartIndex = _start_frame;
