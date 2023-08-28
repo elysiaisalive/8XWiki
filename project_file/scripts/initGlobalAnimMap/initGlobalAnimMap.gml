@@ -7,7 +7,7 @@ function initGlobalAnimMap(){
 	    	},
 	    }
     
-	    show_debug_message( string( "\n# Init Anim Lookup Table #\n{0}\n", __FRAME_ANIM_MAP ) );
+	    show_debug_message( string( "\n# Init sprite Lookup Table #\n{0}\n", __FRAME_ANIM_MAP ) );
     
 	    preinit_tagged_animations( "dummy" );
 
@@ -27,7 +27,7 @@ function initGlobalAnimMap(){
 	            var _anim_key = string_replace_all( _asset_name, "spr" + "_" + _char_string + "_", "" );
 	            var _sprite = _asset_arr[i];
 
-	            // We initialize with 0 anim speed for now, we can set these properties later manually.
+	            // We initialize with 0 sprite speed for now, we can set these properties later manually.
 	            __FRAME_ANIM_MAP[$ _char_string].animations[$ _anim_key] ??= animation_init_looped( _sprite, 0 );
 	        }
 	    }
