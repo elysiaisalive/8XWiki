@@ -2,12 +2,13 @@
 /// @param {bool}       loop If the timer should continously reset when it reaches 0.
 /// @param {bool}       start_paused If the timer should start paused.
 function cTimer( time, _loop = false, _start_paused = false ) constructor {
-    self.label            = ""; // Timer labels. You can use these for debugging.
-    self.tickSpeed       = 1;
-    self.setTime        = time;
-    self.setMaxTime     = time;
-    self.looped          = _loop;
-    self.paused    = false;
+    self.label              = ""; // Timer labels. You can use these for debugging.
+    self.tickSpeed          = 1;
+    self.setTime            = time;
+    self.setMaxTime         = time;
+    self.looped             = _loop;
+    self.startPaused        = _start_paused;
+    self.paused             = false;
     
     #region Setters
     static GetLabel = function() {
@@ -51,7 +52,7 @@ function cTimer( time, _loop = false, _start_paused = false ) constructor {
         }
     };
     
-    static TimerIsEnded = function(){ return true; };
+    static OnTimerEnd = function(){};
     #endregion
     
     static Pause = function() {
@@ -66,7 +67,7 @@ function cTimer( time, _loop = false, _start_paused = false ) constructor {
     static Tick = function() {
         var _delta = ( delta_time / 1000000 );
         
-        if ( _start_paused ) {
+        if ( self.startPaused ) {
             self.paused = true;
         }
         
@@ -80,9 +81,9 @@ function cTimer( time, _loop = false, _start_paused = false ) constructor {
         && self.tickSpeed > 0 ) {
             self.setTime -= self.tickSpeed * _delta;
             
-            // If timer is expired, invoke TimerIsEnded() callback and reset the timer.
+            // If timer is expired, invoke OnTimerEnd() callback and reset the timer.
             if ( self.setTime <= 0 ) {
-                TimerIsEnded();
+                OnTimerEnd();
                 
                 if ( self.looped ) {
                    ResetTimer(); 
