@@ -9,6 +9,7 @@ function animo_tick_animation( animation, scope, variableName ) {
             show_error( "Animation is not a valid Animo object!", true );
         }
         
+        
         var index = scope[$ variableName];
         index += animation.animSpeed;
     
