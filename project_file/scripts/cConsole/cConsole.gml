@@ -113,7 +113,35 @@ function cConsole() constructor {
         clear_log.usageTip = "clear_log     Clears the console history and any currently logged info.";
         clear_log.Execute = function() {
             ClearLog();
+        }; 
+        
+        var quit = new cCommand();
+        quit.label = "quit";
+        quit.usageTip = "quit     Exits the game.";
+        quit.Execute = function() {
+            game_end();
+        };       
+        
+        var _gc_collect = new cCommand();
+        _gc_collect.label = "gc_collect";
+        _gc_collect.usageTip = "gc_collect     Activates the Garbage Collector manually.";
+        _gc_collect.Execute = function() {
+            gc_collect();
+        }; 
+        
+        var _gc_disable = new cCommand();
+        _gc_disable.label = "gc_disable";
+        _gc_disable.usageTip = "gc_disable     Disables the Garbage Collector.";
+        _gc_disable.Execute = function() {
+            gc_enable( false );
         };
+        
+        var show_gm_debug = new cCommand();
+        show_gm_debug.label = "show_gm_debug";
+        show_gm_debug.usageTip = "show_gm_debug     Enables the GameMaker debug overlay.";
+        show_gm_debug.Execute = function() {
+            show_debug_overlay( true );
+        }; 
         
         var playsound = new cCommand();
         playsound.label = "playsound";
@@ -130,6 +158,10 @@ function cConsole() constructor {
         RegisterCommand( help );
         RegisterCommand( clear_log );
         RegisterCommand( playsound );
+        RegisterCommand( show_gm_debug );
+        RegisterCommand( _gc_disable );
+        RegisterCommand( _gc_collect );
+        RegisterCommand( quit );
     }
     
     /* 
