@@ -61,6 +61,8 @@ enum FLAG {
 
 # Functions, Constructors and Script Organization
 There are a few odd things I do to keep things organized.
+
+Generally, script functions should be kept in their own separate files for readability reasons as well as it just makes it easier to debug and PR etc.
 ```GML
 // Functions that can be used anywhere and do not rely on any specific instances.
 function global_scope_function() {};
