@@ -44,7 +44,7 @@ Timer controllers can be used to control groups of timers at once.
 ## Animo
 **Prerelease** :hammer:
 
-This module will feature;
+This module features;
 - Lightweight animation structs that are highly modular.
 - Globally scoped animation map that you can store individual character animations in.
 - Auto adding animations to the global map based on GameMaker's asset tags.
