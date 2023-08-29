@@ -1,6 +1,7 @@
 ---
+module: e.g Clock, Animo etc.
 name: Feature request
-about: Suggest an idea for this project
+about: Suggest an idea for this module
 title: "[FEATURE REQUEST]"
 labels: ''
 assignees: ''
