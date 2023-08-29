@@ -4,9 +4,8 @@
 /// @param {string} variable_name       The variable that will be used for animating the animation.
 /// Thanks to JujuAdams from GameMaker Kitchen for the elegant solution!!!
 function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
-        if ( !is_string( animo_struct_ref )
-        /*|| !is_instanceof( animo_struct_ref, cAnimo )*/ ) {
-            show_error( "Animation is not a valid Animo object!", true );
+        if ( !is_string( animo_struct_ref ) ) {
+            show_error( "Animation is not a valid Animo string!", true );
         }
         
         var index = scope[$ variable_name] + scope[$ animo_struct_ref].animSpeed;
