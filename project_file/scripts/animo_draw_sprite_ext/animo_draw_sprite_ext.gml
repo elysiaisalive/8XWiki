@@ -1,19 +1,23 @@
-/// @param {struct} animation           Struct reference to the animo animation. Recommend to use 'currentAnimation' or something similar.
-/// @param {number} scope           The object that the function will be scoped to.
-/// @param {string} variableName    The variable that will be used for animating the animation.
+/* 
+    Feel free to change these to your hearts content... if you understand what you are doing! Feel free to ask if you need help!
+*/
+
+/// @param {number} scope               The object that the function will be scoped to.
+/// @param {string} animo_struct_ref    Struct reference to the animo animation. Recommend to use 'currentAnimation' or something similar.
+/// @param {string} variable_name       The variable that will be used for animating the animation.
 /// @param {number} x
 /// @param {number} y
-/// @param {number} xScale
-/// @param {number} yScale
+/// @param {number} xscale
+/// @param {number} yscale
 /// @param {number} angle
 /// @param {number} colour
 /// @param {number} opacity
-function animo_draw_sprite_ext( animation, scope, variableName, x, y, xScale, yScale, angle, colour, opacity ) {
-    if ( !is_struct( animation ) || !is_instanceof( animation, cAnimo ) ) {
-        show_error( "Animation is not a valid Animo object!", true );
+function animo_draw_sprite_ext( scope, animo_struct_ref, variable_name, x, y, xscale, yscale, angle, colour, opacity ) {
+    if ( !is_string( animo_struct_ref ) ) {
+        show_error( "Animation is not a valid Animo string!", true );
     }
     
-    var index = scope[$ variableName] + animation.animSpeed;
+    var index = scope[$ variable_name];
     
-    draw_sprite_ext( animation.sprite, animation.frames[scope[$ variableName]][0], x, y, xScale, yScale, angle, colour, opacity ); 
+    draw_sprite_ext( scope[$ animo_struct_ref].sprite, scope[$ animo_struct_ref].frames[index][0], x, y, xscale, yscale, angle, colour, opacity ); 
 }

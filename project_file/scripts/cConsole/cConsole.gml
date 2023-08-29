@@ -60,10 +60,10 @@ function cConsole() constructor {
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         var _end_str = string( "---------------------------------------------------" );
         
-        PushMessageExt( _welcome_str, true );
-        PushMessageExt( _date_str, true );
-        PushMessageExt( _compile_str, true );
-        PushMessageExt( _end_str, true );
+        PrintExt( _welcome_str, true );
+        PrintExt( _date_str, true );
+        PrintExt( _compile_str, true );
+        PrintExt( _end_str, true );
     }
     //
     
@@ -88,7 +88,7 @@ function cConsole() constructor {
     static RegisterCommand = function( _command_struct = new cCommand() ) {
         registeredCommands[$ _command_struct.label] ??= _command_struct;
         
-        PushMessageExt( string( "Registered New Command {0}", _command_struct.label ) );
+        PrintExt( string( "Registered New Command {0}", _command_struct.label ) );
     };
     
     static RegisterDefaultCommands = function() {
@@ -100,11 +100,11 @@ function cConsole() constructor {
             var _command_list = GetCommandList();
             var _help_str = "For more information about a specific command, type help <command_name>";
 
-            PushMessage( "  ", true );
-            PushMessage( _help_str, true );
+            Print( "  ", true );
+            Print( _help_str, true );
 
             for( var i = 0; i < array_length( _command_list ); ++i ) {
-                PushMessage( _command_list[i].usageTip, true );
+                Print( _command_list[i].usageTip, true );
             }
         }  
         
@@ -209,7 +209,7 @@ function cConsole() constructor {
         return string( _filtered_str );
     }
     
-    static PushMessage = function( msg, ignore_history = false ) {
+    static Print = function( msg, ignore_history = false ) {
         var _filtered_msg = FilterString( msg );
         
         if ( string_length( _filtered_msg ) > 1 ) {
@@ -237,11 +237,11 @@ function cConsole() constructor {
         }
     }
     
-    static PushMessageExt = function( msg, ignore_history = false ) {
+    static PrintExt = function( msg, ignore_history = false ) {
         var _str = FilterString( msg );
         
         show_debug_message( _str );
-        PushMessage( _str, true );
+        Print( _str, true );
     }
     
     static SetMaximize = function() {
@@ -296,7 +296,7 @@ function cConsole() constructor {
             }
             
             if ( keyboard_check_pressed( vk_enter ) ) {
-                PushMessage( typingField );
+                Print( typingField );
                 consoleHistorySelect = 0;
                 typingField = "";
             }
