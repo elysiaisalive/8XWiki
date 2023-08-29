@@ -9,9 +9,20 @@
 # Code Style
 Although you don't explicitly <i>need</i> to follow these guidelines, I would very much appreciate it.
 
-# If's and Switches
+# If's AND OR Switches
 ```GML
 if ( condition ) {
+    // Code
+}
+
+// I like using ampersands and pipes for my AND OR, but you are also free to use the verbose AND OR.
+if ( condition
+&& conditionOther ) {
+    // Code
+}
+
+if ( condition
+|| conditionOther ) {
     // Code
 }
 
