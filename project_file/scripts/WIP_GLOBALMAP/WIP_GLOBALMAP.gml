@@ -8,8 +8,8 @@ function animo_init_tagged_animations( _table = __animoAnimationMap, tag_key ) {
     for( var i = 0; i < array_length( _tagged_asset_array ); ++i ) {
         var _asset_name = string_lower( sprite_get_name( _tagged_asset_ids[i] ) );
 
-        if ( string_pos( "spr" + "_" + _char_string + "_", _asset_name ) != -1 ) {
-            var _animo_key = string_replace_all( _asset_name, "spr" + "_" + _char_string + "_", "" );
+        if ( string_pos( "spr" + "_" + tag_key + "_", _asset_name ) != -1 ) {
+            var _animo_key = string_replace_all( _asset_name, "spr" + "_" + tag_key + "_", "" );
             var _sprite = _tagged_asset_ids[i];
 
             // We initialize with 0 anim speed for now, we can set these properties later manually.
@@ -20,14 +20,19 @@ function animo_init_tagged_animations( _table = __animoAnimationMap, tag_key ) {
     print( string( "\nInitialized New Tagged Assets With Tag [{0}] took {1}ms", tag_key, ( get_timer() ) / 1000 ) );
 }
 
+function animo_add_map_entry( _table = __animoAnimationMap, tag_key ) {
+    var animations = {};
+    _table[$ string_lower( tag_key )] = animations;
+}
+
 /// @param      {struct}     table                  The struct that will be used as a container for all your animations
 /// @param      {struct}     animo_ref              The animation struct to push to the animation table
 /// @param      {string}     tag_key                The name of the tagged asset
-/// @param      {string}     animation_key          The animation key name to be referenced by other functions
-function animo_add_to_map(  _table = __animoAnimationMap, animo_ref, tag_key, animation_key ) {
+// @param      {string}     animation_key          The animation key name to be referenced by other functions
+function animo_add_to_map(  _table = __animoAnimationMap, animo_ref, tag_key ) {
     // Making strings case insensitive.
     tag_key = string_lower( tag_key );
-    animation_key = string_lower( animation_key );
+    var animation_key = tag_key;
     
     _table[$ tag_key].animations[$ animation_key] ??= animo_ref;
 }
