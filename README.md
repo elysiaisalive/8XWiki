@@ -5,6 +5,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Disclaimer](#disclaimer)
+- [Documentation](#documentation)
 - [Installation](#installation)
 - [Modules](#modules)
   - [Clock](#clock)
@@ -17,6 +18,9 @@
 <i>This library is intended for use with GameMaker Versions 2.3.X+ Don't come crying if it doesn't work on previous versions!</i>
 
 Nearly everything in this repository is work-in-progress and undocumented, so not every Module will be available yet. Feel free to contribute to make that faster!
+
+# Documentation
+<link>[Documentation is work-in-progress, so please feel free to contribute](https://github.com/Dappermang/8XLib/wiki)</link>.
 
 # Installation
 Here's how to install:
