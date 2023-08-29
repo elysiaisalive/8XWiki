@@ -20,7 +20,7 @@
 Nearly everything in this repository is work-in-progress and undocumented, so not every Module will be available yet. Feel free to contribute to make that faster!
 
 # Documentation
-<link>[Documentation is work-in-progress, so please feel free to contribute](https://github.com/Dappermang/8XLib/wiki)</link>.
+[Documentation is work-in-progress, so please feel free to contribute](https://github.com/Dappermang/8XLib/wiki).
 
 # Installation
 Here's how to install:
