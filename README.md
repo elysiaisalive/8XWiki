@@ -9,8 +9,8 @@
 - [Installation](#installation)
 - [Modules](#modules)
   - [Clock](#clock)
-  - [Submarine](#submarine)
   - [Animo](#animo)
+  - [Submarine](#submarine)
   - [AStar](#astar)
 - [Contributing](#contributing)
 
@@ -41,15 +41,6 @@ This module features;
 Timers are small structs that can be modified with a bunch of different options like randomized tick-rates, set time, callbacks etc.
 Timer controllers can be used to control groups of timers at once.
 
-## Submarine
-**Prerelease** :hammer:
-
-This module features;
-- Event Handler
-- Event subscription and publication
-
-Objects or Structs can be subscribed to an event and when an event is published, a callback ( if defined ) will execute.
-
 ## Animo
 **Prerelease** :hammer:
 
@@ -61,6 +52,15 @@ This module will feature;
 	- Single: Will only animate once.
 	- Looped: Will animate based on an amount of iterations defined.
 	- Chained: Will animate based on iterations and switch to another defined animation once it reaches its maximum iterations.
+
+## Submarine
+**Prerelease** :hammer:
+
+This module features;
+- Event Handler
+- Event subscription and publication
+
+Objects or Structs can be subscribed to an event and when an event is published, a callback ( if defined ) will execute.
 
 ## AStar
 **Unreleased** :interrobang:
