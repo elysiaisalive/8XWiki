@@ -49,7 +49,7 @@
     {"id":{"name":"initWindow","path":"scripts/initWindow/initWindow.yy",},},
     {"id":{"name":"animo_init_looped","path":"scripts/animo_init_looped/animo_init_looped.yy",},},
     {"id":{"name":"cTimerController","path":"scripts/cTimerController/cTimerController.yy",},},
-    {"id":{"name":"sprCat","path":"sprites/sprCat/sprCat.yy",},},
+    {"id":{"name":"sprChicken","path":"sprites/sprChicken/sprChicken.yy",},},
     {"id":{"name":"audTest","path":"sounds/audTest/audTest.yy",},},
     {"id":{"name":"animo_init_finite","path":"scripts/animo_init_finite/animo_init_finite.yy",},},
     {"id":{"name":"event_handler","path":"scripts/event_handler/event_handler.yy",},},
