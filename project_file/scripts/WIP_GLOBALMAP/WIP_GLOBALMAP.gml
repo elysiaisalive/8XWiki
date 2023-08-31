@@ -28,8 +28,11 @@ function animo_map_init_from_tag( tag_key, naming_prefix, naming_rule ) {
         var _sprite = -1;
         var _sprite_name_rule = "";
 
-        //var _anim_key = string_replace_all( _asset_name, "spr" + "_" + _char_string + "_", "" );
-
+        /* TODO:
+        
+            Find a way to just get the sprite action name. spr_TAG_ACTION
+        
+        */
         switch( naming_rule ) {
             case ANIMO_NAMING_RULES.SNAKE_CASE:
                 _sprite_name_rule = naming_prefix + tag_key + "_";

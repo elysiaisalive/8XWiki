@@ -9,6 +9,7 @@ enum ANIMO_TYPE {
     CHAINED, // Inputted animation will transition to a different one once it ends
 }
 
+/// temp
 enum ANIMO_NAMING_RULES {
     SNAKE_CASE,         // sprite_one
     CAMEL_CASE,         // spriteOne
