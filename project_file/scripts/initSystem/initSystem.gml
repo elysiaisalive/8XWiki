@@ -11,6 +11,5 @@ call_later( 10, time_source_units_frames, function() {
     global.camera = new cCamera();
 }, false );
 
-animo_map_init_from_tag( global.__animoAnimationMap, "guy", ANIMO_NAMING_RULES.SNAKE_CASE );
-
-console().PrintExt( $"Result:{global.__animoAnimationMap}" );
+animo_map_init_from_tag( "guy", "spr_", ANIMO_NAMING_RULES.SNAKE_CASE );
+print( $"Result:{global.__animoAnimationMap}" );

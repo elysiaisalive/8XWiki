@@ -64,6 +64,7 @@
     {"id":{"name":"__animoMacros","path":"scripts/__animoMacros/__animoMacros.yy",},},
     {"id":{"name":"sprGuy","path":"sprites/sprGuy/sprGuy.yy",},},
     {"id":{"name":"animo_draw_sprite","path":"scripts/animo_draw_sprite/animo_draw_sprite.yy",},},
+    {"id":{"name":"spr_guy_doingstuff","path":"sprites/spr_guy_doingstuff/spr_guy_doingstuff.yy",},"order":0,},
     {"id":{"name":"__initFilePaths","path":"scripts/__initFilePaths/__initFilePaths.yy",},},
     {"id":{"name":"cVector","path":"scripts/cVector/cVector.yy",},},
     {"id":{"name":"cResolutionManager","path":"scripts/cResolutionManager/cResolutionManager.yy",},},
