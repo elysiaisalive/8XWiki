@@ -1,23 +1,54 @@
-/// @param      {string}        character_tag       The character TAG we will be loading to automatically populate its table entry with animations
-function animo_init_tagged_animations( _table = global.__animoAnimationMap, tag_key ) {
-    tag_key = string_lower( tag_key );
-    var _tagged_asset_array = tag_get_assets( tag_key );
-    var _tagged_asset_ids = tag_get_asset_ids( tag_key, asset_sprite );
+/// @desc This function will initialize an entry in the global animo map and then auto-populate it with animations based on what sprites are tagged with the tag key.
+/// @param {struct} _map        The animation map to use, defaults to animo's predefined map from script '__animoMacros'
+/// @param {string} tag_key     The name of the asset tag as a string.
+/// @param {number} naming_rule The enum of the naming rule to use. Naming rule enum is located at '__animoMacros'
+function animo_map_init_from_tag( _map = global.__animoAnimationMap, tag_key, naming_rule ) {
+    var _lowercase_tag_key = string_lower( tag_key );
+    var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
+    var _tagged_asset_ids = tag_get_asset_ids( _lowercase_tag_key, asset_sprite );
+
+    animo_map_add_entry( _map, _lowercase_tag_key );
 
     // Looping through every single asset with the character tag and intializing a generic animation
     for( var i = 0; i < array_length( _tagged_asset_array ); ++i ) {
-        var _asset_name = string_lower( sprite_get_name( _tagged_asset_ids[i] ) );
-
-        if ( string_pos( "spr" + "_" + tag_key + "_", _asset_name ) != -1 ) {
-            var _animo_key = string_replace_all( _asset_name, "spr" + "_" + tag_key + "_", "" );
-            var _sprite = _tagged_asset_ids[i];
-
-            // We initialize with 0 anim speed for now, we can set these properties later manually.
-            _table[$ tag_key].animations[$ _animo_key] ??= animo_init_looped( _sprite, 0 );
+        var _asset_name = sprite_get_name( _tagged_asset_ids[i] );
+        var _animo_key = "";
+        var _sprite = -1;
+        var _sprite_name_rule = "";
+        
+        switch( naming_rule ) {
+            case ANIMO_NAMING_RULES.SNAKE_CASE:
+                _sprite_name_rule = "spr" + "_" + tag_key + "_";
+            
+                if ( string_pos( _sprite_name_rule, _asset_name ) != -1 ) {
+                    _animo_key = string_replace_all( string_lower( _asset_name ), _sprite_name_rule, "" );
+                }
+                break;            
+            case ANIMO_NAMING_RULES.CAMEL_CASE:
+                _sprite_name_rule = "spr" + tag_key;
+            
+                if ( string_pos( _sprite_name_rule, _asset_name ) != -1 ) {
+                    _animo_key = string_replace_all( _asset_name, _sprite_name_rule, "" );
+                }
+                break;            
+            case ANIMO_NAMING_RULES.PASCAL_CASE:
+                _sprite_name_rule = "spr" + tag_key;
+            
+                if ( string_pos( _sprite_name_rule, _asset_name ) != -1 ) {
+                    _animo_key = string_replace_all( _asset_name, _sprite_name_rule, "" );
+                }
+                break;
         }
+        
+        _sprite = _tagged_asset_ids[i];
+        
+        // We initialize with 0 anim speed for now, we can set these properties later manually.
+        _map[$ _lowercase_tag_key].animations[$ _animo_key] = animo_init_looped( _sprite, 0 );
+        
     }
 
-    print( string( "\nInitialized New Tagged Assets With Tag [{0}] took {1}ms", tag_key, ( get_timer() ) / 1000 ) );
+    var _ms = ( get_timer() / 1000 );
+    print( $"\nInitialized New Tagged Assets With Tag [{_lowercase_tag_key}] took {_ms}ms" );
 }
 
 function animo_map_add_entry( _map = global.__animoAnimationMap, tag_key ) {
@@ -27,49 +58,35 @@ function animo_map_add_entry( _map = global.__animoAnimationMap, tag_key ) {
         _map[$ _lowercase_tag_key] = new cAnimoMapEntry();
     }
     else {
+        // If entry already exists, return
+        return;
         console().PrintExt( $"Entry {_lowercase_tag_key} already exists!" );
     }
 };
 
-function animo_map_add_to_entry( _map, tag_key, animo_struct ) {
-    // var _lowercase_tag_key = string_lower( tag_key ); 
-    // _map[$ _lowercase_tag_key].animations ??= animo_struct;
-}
-
-function animo_get_from_map(  _table = global.__animoAnimationMap, tag_key, animation_key ) {
-    tag_key = string_lower( tag_key );
-    animation_key = string_lower( animation_key );
+/// @desc Retrieves an animation from an entry in the global map and returns it.
+/// @param {struct} _map        The animation map to use, defaults to animo's predefined map from script '__animoMacros'
+/// @param {string} tag_key     The name of the asset tag as a string.
+/// @param {string} animation_key
+function animo_map_retrieve( _map = global.__animoAnimationMap, tag_key, animation_key ) {
+    var _lowercase_tag_key = string_lower( tag_key );
     
-    if ( animo_exists( _table, tag_key, animation_key ) ) {
-        return _table[$ tag_key].animations[$ animation_key];
+    if ( animo_map_animation_exists( _map, _lowercase_tag_key, animation_key ) ) {
+        return _map[$ _lowercase_tag_key].animations[$ animation_key];
     }
     else {
-        show_error( string( "Animo with key {0} does not exist.", tag_key ), true );
+        show_error( string( $"Animo with key [{animation_key}] does not exist." ), true );
     }
 }
 
-function animo_modify_from_map( _table = global.__animoAnimationMap, tag_key, animation_key, properties_struct ) {
-    // Lowercasing the strings so we don't have to worry about retreiving undefined objects
-    tag_key = string_lower( tag_key );
-    animation_key = string_lower( animation_key );
-    var _target_anim = get_animation_from_index( tag_key, animation_key );
+/// @param {struct} _map        The animation map to use, defaults to animo's predefined map from script '__animoMacros'
+/// @param {string} tag_key     The name of the asset tag as a string.
+function animo_map_animation_exists( _map = global.__animoAnimationMap, tag_key, animation_key ) {
+    var _lowercase_tag_key = string_lower( tag_key );
     
-    _target_anim.animType = properties_struct[$ "animType"];
-    _target_anim.animStartIndex = properties_struct[$ "animStartIndex"];
-    _target_anim.animSpeed = properties_struct[$ "animSpeed"];
-    _target_anim.animRepeats = properties_struct[$ "animRepeats"];
-    _target_anim.animNext = properties_struct[$ "animNext"];
-    
-    return _target_anim;
-}
-
-function animo_exists(  _table = global.__animoAnimationMap, tag_key, animation_key ) {
-    tag_key = string_lower( tag_key );
-    animation_key = string_lower( animation_key );
-    
-    if ( !is_undefined( _table[$ tag_key] ) ) {
-        if ( struct_exists( _table[$ tag_key], "animations" ) ) {
-            var _animation_data = _table[$ tag_key].animations;
+    if ( !is_undefined( _map[$ _lowercase_tag_key] ) ) {
+        if ( struct_exists( _map[$ _lowercase_tag_key], "animations" ) ) {
+            var _animation_data = _map[$ _lowercase_tag_key].animations;
             
             if ( !is_undefined( _animation_data[$ animation_key] ) ) {
                 return true;
@@ -79,4 +96,21 @@ function animo_exists(  _table = global.__animoAnimationMap, tag_key, animation_
     else {
         return false;
     }
+}
+ 
+/// --------------IDK ABOUT THIS ONE
+/// @param {struct} _map        The animation map to use, defaults to animo's predefined map from script '__animoMacros'
+/// @param {string} tag_key     The name of the asset tag as a string.
+function animo_modify_from_map( _map = global.__animoAnimationMap, tag_key, animation_key, properties_struct ) {
+    // Lowercasing the strings so we don't have to worry about retreiving undefined objects
+    var _lowercase_tag_key = string_lower( tag_key );
+    var _target_anim = get_animation_from_index( tag_key, animation_key );
+    
+    _target_anim.animType = properties_struct[$ "animType"];
+    _target_anim.animStartIndex = properties_struct[$ "animStartIndex"];
+    _target_anim.animSpeed = properties_struct[$ "animSpeed"];
+    _target_anim.animRepeats = properties_struct[$ "animRepeats"];
+    _target_anim.animNext = properties_struct[$ "animNext"];
+    
+    return _target_anim;
 }

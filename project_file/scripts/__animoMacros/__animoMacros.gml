@@ -1,5 +1,8 @@
 global.__animoAnimationMap = {};
 
+globalvar __animoFallbackSprite;
+__animoFallbackSprite = sprGuy;
+
 enum ANIMO_TYPE {
     FINITE, // Will animate once and then return to the first frame
     LOOPED, // Will loop over and over
@@ -9,5 +12,5 @@ enum ANIMO_TYPE {
 enum ANIMO_NAMING_RULES {
     SNAKE_CASE,         // sprite_one
     CAMEL_CASE,         // spriteOne
-    PASCAL_CASE         // SpriteOne
+    PASCAL_CASE,        // SpriteOne
 }

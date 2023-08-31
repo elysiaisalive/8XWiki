@@ -11,9 +11,6 @@ call_later( 10, time_source_units_frames, function() {
     global.camera = new cCamera();
 }, false );
 
-animo_map_add_entry( global.__animoAnimationMap, "character1" );
-animo_map_add_entry( global.__animoAnimationMap, "character2" );
-
-var animation = animo_init_finite( sprGuy, 0 );
+animo_map_init_from_tag( global.__animoAnimationMap, "guy", ANIMO_NAMING_RULES.SNAKE_CASE );
 
 console().PrintExt( $"Result:{global.__animoAnimationMap}" );

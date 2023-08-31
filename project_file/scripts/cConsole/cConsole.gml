@@ -60,10 +60,10 @@ function cConsole() constructor {
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         var _end_str = string( "---------------------------------------------------" );
         
-        PrintExt( _welcome_str, true );
-        PrintExt( _date_str, true );
-        PrintExt( _compile_str, true );
-        PrintExt( _end_str, true );
+        PrintExt( _welcome_str );
+        PrintExt( _date_str );
+        PrintExt( _compile_str );
+        PrintExt( _end_str );
     }
     //
     
@@ -237,7 +237,7 @@ function cConsole() constructor {
         }
     }
     
-    static PrintExt = function( msg, ignore_history = false ) {
+    static PrintExt = function( msg ) {
         var _str = FilterString( msg );
         
         show_debug_message( _str );
