@@ -1,5 +1,5 @@
 /// @param      {string}        character_tag       The character TAG we will be loading to automatically populate its table entry with animations
-function animo_init_tagged_animations( _table = __animoAnimationMap, tag_key ) {
+function animo_init_tagged_animations( _table = global.__animoAnimationMap, tag_key ) {
     tag_key = string_lower( tag_key );
     var _tagged_asset_array = tag_get_assets( tag_key );
     var _tagged_asset_ids = tag_get_asset_ids( tag_key, asset_sprite );
@@ -20,34 +20,23 @@ function animo_init_tagged_animations( _table = __animoAnimationMap, tag_key ) {
     print( string( "\nInitialized New Tagged Assets With Tag [{0}] took {1}ms", tag_key, ( get_timer() ) / 1000 ) );
 }
 
-function animo_add_map_entry( _table = __animoAnimationMap, tag_key ) {
-    var animations = {};
-    _table[$ string_lower( tag_key )] = animations;
-}
-
-/// @param      {struct}     table                  The struct that will be used as a container for all your animations
-/// @param      {struct}     animo_ref              The animation struct to push to the animation table
-/// @param      {string}     tag_key                The name of the tagged asset
-// @param      {string}     animation_key          The animation key name to be referenced by other functions
-function animo_add_to_map(  _table = __animoAnimationMap, animo_ref, tag_key ) {
-    // Making strings case insensitive.
-    tag_key = string_lower( tag_key );
-    var animation_key = tag_key;
+function animo_map_add_entry( _map = global.__animoAnimationMap, tag_key ) {
+    var _lowercase_tag_key = string_lower( tag_key );
     
-    _table[$ tag_key].animations[$ animation_key] ??= animo_ref;
+    if ( is_undefined( _map[$ _lowercase_tag_key] ) ) {
+        _map[$ _lowercase_tag_key] = new cAnimoMapEntry();
+    }
+    else {
+        console().PrintExt( $"Entry {_lowercase_tag_key} already exists!" );
+    }
+};
+
+function animo_map_add_to_entry( _map, tag_key, animo_struct ) {
+    // var _lowercase_tag_key = string_lower( tag_key ); 
+    // _map[$ _lowercase_tag_key].animations ??= animo_struct;
 }
 
-/* 
-    USAGE :
-        example 1;
-        When referencing an animation key from inside of a struct.
-        get_animation_from_index( character, currentItem.walk );
-        
-        example 2;
-        Manually inputting animation key.
-        get_animation_from_index( character, "AnimationWalk" );
-*/
-function animo_get_from_map(  _table = __animoAnimationMap, tag_key, animation_key ) {
+function animo_get_from_map(  _table = global.__animoAnimationMap, tag_key, animation_key ) {
     tag_key = string_lower( tag_key );
     animation_key = string_lower( animation_key );
     
@@ -59,7 +48,7 @@ function animo_get_from_map(  _table = __animoAnimationMap, tag_key, animation_k
     }
 }
 
-function animo_modify_from_map( _table = __animoAnimationMap, tag_key, animation_key, properties_struct ) {
+function animo_modify_from_map( _table = global.__animoAnimationMap, tag_key, animation_key, properties_struct ) {
     // Lowercasing the strings so we don't have to worry about retreiving undefined objects
     tag_key = string_lower( tag_key );
     animation_key = string_lower( animation_key );
@@ -74,10 +63,7 @@ function animo_modify_from_map( _table = __animoAnimationMap, tag_key, animation
     return _target_anim;
 }
 
-/// @param      {string}     character_key          The name of the character
-/// @param      {string}     animation_key          The animation key name to be fetched
-/// @returns    {bool}
-function animo_exists(  _table = __animoAnimationMap, tag_key, animation_key ) {
+function animo_exists(  _table = global.__animoAnimationMap, tag_key, animation_key ) {
     tag_key = string_lower( tag_key );
     animation_key = string_lower( animation_key );
     

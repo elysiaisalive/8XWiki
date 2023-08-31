@@ -1,6 +1,7 @@
 console();
 resolution_manager();
 event_handler();
+__animoMacros();
 
 global.camera = undefined;
 
@@ -10,11 +11,9 @@ call_later( 10, time_source_units_frames, function() {
     global.camera = new cCamera();
 }, false );
 
-animo_add_map_entry( , "character1" );
-animo_add_map_entry( , "character2" );
+animo_map_add_entry( global.__animoAnimationMap, "character1" );
+animo_map_add_entry( global.__animoAnimationMap, "character2" );
 
 var animation = animo_init_finite( sprGuy, 0 );
 
-//animo_add_to_map( __animoAnimationMap, animation, "character1" );
-
-console().PrintExt( __animoAnimationMap );
+console().PrintExt( $"Result:{global.__animoAnimationMap}" );
