@@ -2,7 +2,7 @@
 /// @param {string} tag_key         The name of the asset tag as a string.
 /// @param {string} naming_prefix   Asset prefix rule 'spr_snakecased' or 'sprPascalCase'
 /// @param {number} naming_rule     The enum of the naming rule to use. Naming rule enum is located at '__animoMacros'
-function animo_map_init_from_tag( tag_key, naming_prefix, naming_rule ) {
+function animo_init_from_tag( tag_key, naming_prefix, naming_rule ) {
     var _lowercase_tag_key = string_lower( tag_key );
     var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
     var _tagged_asset_ids = tag_get_asset_ids( _lowercase_tag_key, asset_sprite );
@@ -69,7 +69,7 @@ function animo_map_init_from_tag( tag_key, naming_prefix, naming_rule ) {
     console().PrintExt( $"\nAnimo initialized animations from tag [{_lowercase_tag_key}] took {_ms}ms" );
 }
 
-function animo_map_add_entry( tag_key ) {
+function animo_add_entry( tag_key ) {
     var _lowercase_tag_key = string_lower( tag_key );
     
     if ( is_undefined( global.__animoAnimationMap[$ _lowercase_tag_key] ) ) {
@@ -85,10 +85,10 @@ function animo_map_add_entry( tag_key ) {
 /// @desc Retrieves an animation from an entry in the global map and returns it.
 /// @param {string} tag_key     The name of the asset tag as a string.
 /// @param {string} animation_key
-function animo_map_get_animation( tag_key, animation_key ) {
+function animo_get_animation( tag_key, animation_key ) {
     var _lowercase_tag_key = string_lower( tag_key );
     
-    if ( animo_map_animation_exists( _lowercase_tag_key, animation_key ) ) {
+    if ( animo_animation_exists( _lowercase_tag_key, animation_key ) ) {
         return global.__animoAnimationMap[$ _lowercase_tag_key].animations[$ animation_key];
     }
     else {
@@ -98,7 +98,7 @@ function animo_map_get_animation( tag_key, animation_key ) {
 
 /// @param {string} tag_key     The name of the asset tag as a string.
 /// @param {string} animation_key
-function animo_map_animation_exists( tag_key, animation_key ) {
+function animo_animation_exists( tag_key, animation_key ) {
     var _lowercase_tag_key = string_lower( tag_key );
     
     if ( !is_undefined( global.__animoAnimationMap[$ _lowercase_tag_key] ) ) {
@@ -118,7 +118,7 @@ function animo_map_animation_exists( tag_key, animation_key ) {
 /// --------------IDK ABOUT THIS ONE
 /// @param {struct} _map        The animation map to use, defaults to animo's predefined map from script '__animoMacros'
 /// @param {string} tag_key     The name of the asset tag as a string.
-function animo_modify_from_map( _map = global.__animoAnimationMap, tag_key, animation_key, properties_struct ) {
+function animo_modify( _map = global.__animoAnimationMap, tag_key, animation_key, properties_struct ) {
     // Lowercasing the strings so we don't have to worry about retreiving undefined objects
     var _lowercase_tag_key = string_lower( tag_key );
     var _target_anim = get_animation_from_index( tag_key, animation_key );
