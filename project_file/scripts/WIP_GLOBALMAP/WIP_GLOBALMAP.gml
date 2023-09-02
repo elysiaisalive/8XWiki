@@ -2,12 +2,12 @@
 /// @param {string} tag_key         The name of the asset tag as a string.
 /// @param {string} naming_prefix   Asset prefix rule 'spr_snakecased' or 'sprPascalCase'
 /// @param {number} naming_rule     The enum of the naming rule to use. Naming rule enum is located at '__animoMacros'
-function animo_init_from_tag( tag_key, naming_prefix, naming_rule ) {
+function animo_populate_by_tag( tag_key, naming_prefix, naming_rule ) {
     var _lowercase_tag_key = string_lower( tag_key );
     var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
     var _tagged_asset_ids = tag_get_asset_ids( _lowercase_tag_key, asset_sprite );
 
-    animo_map_add_entry( _lowercase_tag_key );
+    animo_add_entry( _lowercase_tag_key );
 
     if ( is_undefined( tag_key ) || !is_string( tag_key ) ) {
         show_error( "No asset tag defined", true );
@@ -30,7 +30,7 @@ function animo_init_from_tag( tag_key, naming_prefix, naming_rule ) {
 
         /* TODO:
         
-            Find a way to just get the sprite action name. spr_TAG_ACTION
+            trim the string of the spr_ prefix and the character tag.
         
         */
         switch( naming_rule ) {
@@ -39,7 +39,6 @@ function animo_init_from_tag( tag_key, naming_prefix, naming_rule ) {
             
                 if ( string_pos( _sprite_name_rule, _asset_name ) != -1 ) {
                     _animo_key = string_replace_all( _asset_name, _sprite_name_rule, "" );
-                    //_animo_key = string_replace_all( _asset_name, _asset_name, tag_key );
                 }
                 break;            
             case ANIMO_NAMING_RULES.CAMEL_CASE:
