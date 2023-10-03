@@ -1,9 +1,10 @@
+/// @self {cConsole}
 function cConsole() constructor {
     enabled = false;
     registeredCommands = {};
 
-    consoleWidth = window_get_width();
-    consoleHeight = 64;
+    consoleWidth = window_get_width() - 1;
+    consoleHeight = window_get_height() - 1;
     consoleDefaultHeight = consoleHeight;
     consoleFullScreenHeight = 270 - 5.1;
     consoleRevealSpd = 0.075;
@@ -60,10 +61,10 @@ function cConsole() constructor {
         var _compile_str = string( "Compiled with {0}", code_is_compiled() ? "YYC" : "VM" );
         var _end_str = string( "---------------------------------------------------" );
         
-        PrintExt( _welcome_str, true );
-        PrintExt( _date_str, true );
-        PrintExt( _compile_str, true );
-        PrintExt( _end_str, true );
+        PrintExt( _welcome_str );
+        PrintExt( _date_str );
+        PrintExt( _compile_str );
+        PrintExt( _end_str );
     }
     //
     
@@ -94,7 +95,7 @@ function cConsole() constructor {
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
-        help.usageTip = "help       Prints out a list of every available command.";
+        help.usageTip = $"{help.label} Prints out a list of every available command.";
         help.SetArguments( "<command_ref>" );
         help.Execute = function() {
             var _command_list = GetCommandList();
@@ -237,7 +238,7 @@ function cConsole() constructor {
         }
     }
     
-    static PrintExt = function( msg, ignore_history = false ) {
+    static PrintExt = function( msg ) {
         var _str = FilterString( msg );
         
         show_debug_message( _str );

@@ -1,3 +1,4 @@
+/// @self {cAnimo|function}
 function cAnimo() constructor {
     self.sprite = -1; // Asset index of the sprite
     self.frames = [];

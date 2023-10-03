@@ -1,0 +1,3 @@
+function cAnimoMapEntry() constructor {
+    animations = {};
+}

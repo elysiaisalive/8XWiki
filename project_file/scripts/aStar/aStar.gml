@@ -19,3 +19,27 @@ function aStarSearch( _start, _end ) {
         var currentNode = open_list[lowIndex];
     }
 }
+
+function astar_grid_create( cell_w, cell_h, w, h ) {
+    var _grid = ds_grid_create( w, h );
+    
+    for( var i = 0; i < w ) {
+        ds_grid_set( _grid, i, i, cell_w );
+        
+        for( var i = 0; i < h ) {
+            ds_grid_set( _grid, i, i, cell_h );
+        }
+    }
+    
+    return _grid;
+};
+
+function aStarGraph() constructor {
+    self.cellW = 0;
+    self.cellH = 0;
+    self.graphW = 0;
+    self.graphH = 0;
+    self.x = 0;
+    self.y = 0;
+    self.graph = [];
+}
