@@ -42,7 +42,7 @@ Timers are small structs that can be modified with a bunch of different options 
 Timer controllers can be used to control groups of timers at once.
 
 ## Animo
-**Prerelease** :hammer:
+**Released** :white_check_mark:
 
 This module features;
 - Lightweight animation structs that are highly modular.
