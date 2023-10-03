@@ -11,6 +11,7 @@ call_later( 10, time_source_units_frames, function() {
     global.camera = new cCamera();
 }, false );
 
-animo_populate_by_tag( "Bob", "spr_", ANIMO_NAMING_RULES.CAMEL_CASE );
+animo_populate_by_tag( "Bob" );
+animo_populate_by_tag( "Guy" );
 
 print( $"Result:{global.__animoAnimationMap}" );

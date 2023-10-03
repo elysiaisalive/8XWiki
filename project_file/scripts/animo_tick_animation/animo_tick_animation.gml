@@ -5,7 +5,7 @@
 /// Thanks to JujuAdams from GameMaker Kitchen for the elegant solution!!!
 function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
         if ( !is_string( animo_struct_ref ) ) {
-            show_error( "Animation is not a valid Animo string!", true );
+            show_error( "Struct reference must be a string!", true );
         }
         
         var index = scope[$ variable_name] + scope[$ animo_struct_ref].animSpeed;
@@ -14,15 +14,16 @@ function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
         switch( scope[$ animo_struct_ref].animType ) {
             case ANIMO_TYPE.FINITE :
             	// Switch back to the start index and stop animating
+            	index = 0;
             	scope[$ animo_struct_ref].animSpeed = 0;
                 break;
             case ANIMO_TYPE.CHAINED :
             	// If we have reached the amount of set repeats and there is a valid animation to change to, we will switch
                 if ( ( scope[$ animo_struct_ref].currentIterations >= scope[$ animo_struct_ref].animRepeats )
                 && !is_undefined( scope[$ animo_struct_ref].animNext ) ) {
+            		scope[$ animo_struct_ref].OnAnimationSwitch();
             		scope[$ animo_struct_ref] = scope[$ animo_struct_ref].animNext;
             		index = 0;
-            		scope[$ animo_struct_ref].OnAnimationSwitch();
                 }
                 // If there is no animation to switch to, just start looping, but don't change type because we may want to set this later.
                 else if ( is_undefined( scope[$ animo_struct_ref].animNext ) ) {

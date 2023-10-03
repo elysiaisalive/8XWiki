@@ -1,9 +1,10 @@
+/// @self {cConsole}
 function cConsole() constructor {
     enabled = false;
     registeredCommands = {};
 
-    consoleWidth = window_get_width();
-    consoleHeight = 64;
+    consoleWidth = window_get_width() - 1;
+    consoleHeight = window_get_height() - 1;
     consoleDefaultHeight = consoleHeight;
     consoleFullScreenHeight = 270 - 5.1;
     consoleRevealSpd = 0.075;
@@ -94,7 +95,7 @@ function cConsole() constructor {
     static RegisterDefaultCommands = function() {
         var help = new cCommand();
         help.label = "help";
-        help.usageTip = "help       Prints out a list of every available command.";
+        help.usageTip = $"{help.label} Prints out a list of every available command.";
         help.SetArguments( "<command_ref>" );
         help.Execute = function() {
             var _command_list = GetCommandList();
