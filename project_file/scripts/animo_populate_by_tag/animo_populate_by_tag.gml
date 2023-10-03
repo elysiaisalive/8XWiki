@@ -6,7 +6,7 @@ function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
     var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
     var _tagged_asset_ids = tag_get_asset_ids( _lowercase_tag_key, asset_sprite );
 
-    animo_init_entry( _lowercase_tag_key );
+    animo_init_tag( _lowercase_tag_key );
 
     if ( is_undefined( tag_key ) 
     || !is_string( tag_key ) ) {

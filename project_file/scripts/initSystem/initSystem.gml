@@ -14,4 +14,11 @@ call_later( 10, time_source_units_frames, function() {
 animo_populate_by_tag( "Bob" );
 animo_populate_by_tag( "Guy" );
 
+if ( animo_tag_exists( "Person" ) ) {
+    console().Print( "Person exists!" );
+}
+else {
+    console().Print( "Person not exists!" );
+}
+
 print( $"Result:{global.__animoAnimationMap}" );

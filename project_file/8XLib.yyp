@@ -42,6 +42,7 @@
   "resources": [
     {"id":{"name":"fntConsole","path":"fonts/fntConsole/fntConsole.yy",},},
     {"id":{"name":"animo_init_chained","path":"scripts/animo_init_chained/animo_init_chained.yy",},},
+    {"id":{"name":"animo_tag_exists","path":"scripts/animo_tag_exists/animo_tag_exists.yy",},"order":0,},
     {"id":{"name":"aStar","path":"scripts/aStar/aStar.yy",},},
     {"id":{"name":"animo_set_prefix","path":"scripts/animo_set_prefix/animo_set_prefix.yy",},"order":0,},
     {"id":{"name":"objGOAPGuy","path":"objects/objGOAPGuy/objGOAPGuy.yy",},},
@@ -78,7 +79,7 @@
     {"id":{"name":"__spr_animo_fallback","path":"sprites/__spr_animo_fallback/__spr_animo_fallback.yy",},"order":0,},
     {"id":{"name":"cGOAPAction","path":"scripts/cGOAPAction/cGOAPAction.yy",},},
     {"id":{"name":"animo_draw_sprite_ext","path":"scripts/animo_draw_sprite_ext/animo_draw_sprite_ext.yy",},},
-    {"id":{"name":"animo_init_entry","path":"scripts/animo_init_entry/animo_init_entry.yy",},"order":0,},
+    {"id":{"name":"animo_init_tag","path":"scripts/animo_init_tag/animo_init_tag.yy",},"order":0,},
     {"id":{"name":"objSystem","path":"objects/objSystem/objSystem.yy",},},
     {"id":{"name":"animo_tick_animation","path":"scripts/animo_tick_animation/animo_tick_animation.yy",},},
     {"id":{"name":"cEventHandler","path":"scripts/cEventHandler/cEventHandler.yy",},},
