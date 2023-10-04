@@ -24,8 +24,11 @@ function cAnimo() constructor {
 	/// @param {number} _frame
 	/// @param {function} callback
 	static SetFrameCallback = function( _frame = 0, callback ) {
-		if ( callback != -1 ) {
+		if ( !is_undefined( callback ) ) {
 			self.frames[_frame][1] = callback;
+		}
+		else {
+			show_error( $"Callback on {_frame} cannot be invoked, make sure it is defined!", true );
 		}
 	}
 	
@@ -35,6 +38,18 @@ function cAnimo() constructor {
 		if ( self.animEndFunc != -1 ) {
 			self.animEndFunc = _func;
 		}
+	}
+	
+	/// @static
+	/// @param {number} anim_speed
+	static SetAnimSpeed = function( anim_speed ) {
+		self.animSpeed = anim_speed;
+	}
+	
+	/// @static
+	/// @param {number} type
+	static SetAnimType = function( type ) {
+		self.animType = type;
 	}
 	#endregion
 	

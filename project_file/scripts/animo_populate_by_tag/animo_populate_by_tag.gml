@@ -23,11 +23,16 @@ function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
         var _animo_key = "";
         var _animo_sprite = -1;
         
+        // Iterating over the prefix pattern
         for ( var j = 0; j < array_length( __animoRegex ); ++j ) {
             var _regex_pattern = __animoRegex[j];
+            var _regex_length = string_length( __animoRegex[j] );
+            var _string_pos = string_pos( _regex_pattern, _asset_name );
             
-            if ( string_pos( _regex_pattern, _asset_name ) != -1 ) {
-                _asset_name = string_replace_all( _asset_name, _regex_pattern, "" );
+            if ( _string_pos == 1 ) {
+                // Only remove the first occurence of the prefix.
+                _asset_name = string_delete( _asset_name, 1, _regex_length );
+                break;
             }
         }
 
