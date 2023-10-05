@@ -17,8 +17,21 @@ function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
         }
         
         var index = scope[$ variable_name] + scope[$ animo_struct_ref].animSpeed;
+        var _frame_count = array_length( scope[$ animo_struct_ref].frames );
         
-        scope[$ variable_name] += scope[$ animo_struct_ref].animSpeed;
+        scope[$ variable_name] = index;
+        
+        // Frame callbacks
+        if ( index >= 0
+        && index < _frame_count ) {
+            if ( !is_undefined( scope[$ animo_struct_ref].frames[index][1] ) ) {
+                // Only execute callback if it has not already been called.
+                if ( !scope[$ animo_struct_ref].frames[index][2] ) {
+                    scope[$ animo_struct_ref].frames[index][1]();
+                    scope[$ animo_struct_ref].frames[index][2] = true;
+                }
+            }
+        }
         
         if ( floor( index ) >= array_length( scope[$ animo_struct_ref].frames ) ) {
             switch( scope[$ animo_struct_ref].animType ) {
@@ -44,23 +57,21 @@ function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
                     }
                     break;
             }
-                    
-            index = 0;
             
-            if ( !is_undefined( scope[$ animo_struct_ref].frames[index][1] ) ) {
-                scope[$ animo_struct_ref].frames[index][1]();
-            }
-            	
             // If there is no end index available, we will just execute the function now
-            if ( !is_undefined( scope[$ animo_struct_ref].animEndFunc ) 
-            && is_undefined( scope[$ animo_struct_ref].animEndIndex ) ) {
-                scope[$ animo_struct_ref].animEndFunc();
+            if ( !is_undefined( scope[$ animo_struct_ref].animEndCallback ) ) {
+                scope[$ animo_struct_ref].animEndCallback();
             }
+            
+            index = 0;
          	
             if ( scope[$ animo_struct_ref].currentIterations < scope[$ animo_struct_ref].animRepeats ) {
                 ++scope[$ animo_struct_ref].currentIterations;
             }
             
-            scope[$ variable_name] = clamp( index, 0, array_length( scope[$ animo_struct_ref].frames ) );
+            // Reset all callbacks so they can be called again
+            scope[$ animo_struct_ref].RefreshCallbacks();
     }
+    
+    scope[$ variable_name] = clamp( index, 0, _frame_count );
 }

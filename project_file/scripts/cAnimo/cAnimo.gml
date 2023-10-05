@@ -11,7 +11,7 @@ function cAnimo() constructor {
     
     // End frame defined to execute the end function. If none is defined then it will execute at the end of an animation
     self.animEndIndex = 0;
-    self.animEndFunc = undefined;
+    self.animEndCallback = undefined;
 	
 	#region Getters
 	/// @static
@@ -44,21 +44,14 @@ function cAnimo() constructor {
 	/// @static
 	/// @param {number} _frame
 	/// @param {function} callback
-	static SetFrameCallback = function( _frame = 0, callback ) {
-		if ( callback ) {
-			self.frames[_frame][1] = callback;
-		}
-		else {
-			show_error( $"Callback on {_frame} cannot be invoked, make sure it is defined!", true );
-		}
+	static SetFrameCallback = function( frame, callback ) {
+		self.frames[frame][1] = method( undefined, callback );
 	}
 	
 	/// @static
 	/// @param {function} callback
-	static SetAnimEndCallback = function( _func = -1 ) {
-		if ( self.animEndFunc != -1 ) {
-			self.animEndFunc = _func;
-		}
+	static SetAnimEndCallback = function( callback ) {
+		self.animEndCallback = method( undefined, callback );
 	}
 
 	/// @static
@@ -104,7 +97,16 @@ function cAnimo() constructor {
 		var _image_count = sprite_get_number( self.sprite );
 		
 		for( var i = 0; i < _image_count; ++i ) {
-			self.frames[i] = [i, undefined];
+			self.frames[i] = [i, undefined, false];
+		}
+	}
+	
+	static RefreshCallbacks = function() {
+	// Iterating over every frames callback and setting them back to false so they can be invoked.
+		var _frame_count = array_length( self.frames );
+		
+		for( var i = 0; i < _frame_count; ++i ) {
+			self.frames[i][2] = false;
 		}
 	}
 }
