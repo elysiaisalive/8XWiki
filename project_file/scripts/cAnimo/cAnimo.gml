@@ -15,8 +15,29 @@ function cAnimo() constructor {
 	
 	#region Getters
 	/// @static
-	static GetCurrentAnimSpeed = function() {
+	static GetSprite = function() {
+		return self.sprite;
+	}	
+	/// @static
+	static GetAnimSpeed = function() {
 		return self.animSpeed;
+	}
+	/// @static
+	static GetAnimType = function() {
+		return self.animType;
+	}
+	/// @static
+	static GetRepeats = function() {
+		return self.animRepeats;
+	}
+	/// @static
+	static GetFrameCallback = function( _frame = 0 ) {
+		if ( self.frames[_frame][1] ) {
+			return self.frames[_frame][1];
+		}
+		else {
+			show_debug_message( $"Could not find callback on frame {_frame}." );
+		}
 	}
 	#endregion
 	#region Setters
@@ -34,10 +55,15 @@ function cAnimo() constructor {
 	
 	/// @static
 	/// @param {function} callback
-	static SetAnimationEndCallback = function( _func = -1 ) {
+	static SetAnimEndCallback = function( _func = -1 ) {
 		if ( self.animEndFunc != -1 ) {
 			self.animEndFunc = _func;
 		}
+	}
+
+	/// @static
+	static OnAnimationSwitch = function() {
+		self.currentIterations = 0;
 	}
 	
 	/// @static
@@ -51,7 +77,27 @@ function cAnimo() constructor {
 	static SetAnimType = function( type ) {
 		self.animType = type;
 	}
+	
+	/// @static
+	/// @param {number} type
+	static SetSprite = function( sprite ) {
+		if ( !sprite_exists( sprite ) ) {
+			show_error( $"{sprite} is not an existing sprite!", true );
+		}
+		
+		self.sprite = sprite;
+	}
 	#endregion
+	
+	/// @static
+	static SetRepeats = function( repeats ) {
+		self.animRepeats = repeats;
+	}
+	
+	/// @static
+	static ResetIterations = function() {
+		self.currentIterations = 0;
+	}
 	
 	// Populating the frame array with all sprite frames
 	static Init = function() {
@@ -60,10 +106,5 @@ function cAnimo() constructor {
 		for( var i = 0; i < _image_count; ++i ) {
 			self.frames[i] = [i, undefined];
 		}
-	}
-	
-	/// @static
-	static OnAnimationSwitch = function() {
-		self.currentIterations = 0;
 	}
 }

@@ -31,6 +31,7 @@ function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
                 	// If we have reached the amount of set repeats and there is a valid animation to change to, we will switch
                     if ( ( scope[$ animo_struct_ref].currentIterations >= scope[$ animo_struct_ref].animRepeats )
                     && !is_undefined( scope[$ animo_struct_ref].animNext ) ) {
+                		scope[$ animo_struct_ref].ResetIterations();
                 		scope[$ animo_struct_ref].OnAnimationSwitch();
                 		scope[$ animo_struct_ref] = scope[$ animo_struct_ref].animNext;
                 		index = 0;
@@ -38,6 +39,7 @@ function animo_tick_animation( scope, animo_struct_ref, variable_name ) {
                     // If there is no animation to switch to, just start looping, but don't change type because we may want to set this later.
                     else if ( is_undefined( scope[$ animo_struct_ref].animNext ) ) {
                 		index = 0;
+                		scope[$ animo_struct_ref].ResetIterations();
                 		scope[$ animo_struct_ref].OnAnimationSwitch();
                     }
                     break;
