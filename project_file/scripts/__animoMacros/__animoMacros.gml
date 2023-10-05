@@ -1,8 +1,7 @@
-global.__animoAnimationMap = {};
-
 #macro __animoFallbackSprite __spr_animo_fallback
-
-globalvar __animoRegex;
+#macro __animoVersion "1.0.1"
+#macro __animoWelcomeString $"------------------------------------\nWelcome To Animo v{__animoVersion}\n------------------------------------"
+globalvar __animoRegex; 
 __animoRegex = ["spr_", "spr"];
 
 enum ANIMO_TYPE {

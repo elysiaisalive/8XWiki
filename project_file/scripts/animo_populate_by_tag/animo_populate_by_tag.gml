@@ -5,9 +5,12 @@ function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
     var _lowercase_tag_key = string_lower( tag_key );
     var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
     var _tagged_asset_ids = tag_get_asset_ids( _lowercase_tag_key, asset_sprite );
-
-    animo_init_tag( _lowercase_tag_key );
-
+	
+	// If there is not entry in the map, create one.
+	if ( !animo_tag_exists( _lowercase_tag_key ) ) {
+		animo_init_tag( _lowercase_tag_key );
+	}
+	
     if ( is_undefined( tag_key ) 
     || !is_string( tag_key ) ) {
         show_error( "No asset tag defined", true );
