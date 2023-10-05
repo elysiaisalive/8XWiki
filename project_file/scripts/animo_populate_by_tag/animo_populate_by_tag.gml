@@ -1,6 +1,6 @@
 /// @desc This function will initialize an entry in the global animo map and then auto-populate it with animations based on what sprites are tagged with the tag key.
 /// @param {string} tag_key         The name of the asset tag as a string.
-/// @param {number} ?_name_regex    Naming pattern to use
+/// @param {number} ?name_regex    Naming pattern to use
 function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
     var _lowercase_tag_key = string_lower( tag_key );
     var _tagged_asset_array = tag_get_assets( _lowercase_tag_key );
@@ -20,6 +20,7 @@ function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
     // Looping through every single asset with the character tag and intializing a generic animation
     for( var i = 0; i < array_length( _tagged_asset_array ); ++i ) {
         var _asset_name = sprite_get_name( _tagged_asset_ids[i] );
+        var _trimmed_key = "";
         var _animo_key = "";
         var _animo_sprite = -1;
         
@@ -31,12 +32,12 @@ function animo_populate_by_tag( tag_key, _name_regex = __animoRegex ) {
             
             if ( _string_pos == 1 ) {
                 // Only remove the first occurence of the prefix.
-                _asset_name = string_delete( _asset_name, 1, _regex_length );
+                _trimmed_key = string_delete( _asset_name, 1, _regex_length );
                 break;
             }
         }
 
-        _animo_key = string_lower( _asset_name );
+        _animo_key = string_lower( _trimmed_key );
         _animo_sprite = _tagged_asset_ids[i];
         
         // We initialize with 0 anim speed for now, we can set these properties later manually.
