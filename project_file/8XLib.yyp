@@ -72,9 +72,9 @@
     {"id":{"name":"__animoMacros","path":"scripts/__animoMacros/__animoMacros.yy",},},
     {"id":{"name":"sprGuy","path":"sprites/sprGuy/sprGuy.yy",},},
     {"id":{"name":"animo_draw_sprite","path":"scripts/animo_draw_sprite/animo_draw_sprite.yy",},},
-    {"id":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"id":{"name":"spr_guy_doingstuff","path":"sprites/spr_guy_doingstuff/spr_guy_doingstuff.yy",},},
     {"id":{"name":"__initFilePaths","path":"scripts/__initFilePaths/__initFilePaths.yy",},},
+    {"id":{"name":"objCamera","path":"objects/objCamera/objCamera.yy",},},
     {"id":{"name":"cVector","path":"scripts/cVector/cVector.yy",},},
     {"id":{"name":"cResolutionManager","path":"scripts/cResolutionManager/cResolutionManager.yy",},},
     {"id":{"name":"animo_get_animation","path":"scripts/animo_get_animation/animo_get_animation.yy",},},
@@ -103,7 +103,6 @@
     {"id":{"name":"cGUIController","path":"scripts/cGUIController/cGUIController.yy",},},
   ],
   "RoomOrderNodes": [
-    {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "templateType": null,

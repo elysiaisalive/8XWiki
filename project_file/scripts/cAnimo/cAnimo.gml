@@ -24,7 +24,7 @@ function cAnimo() constructor {
 	/// @param {number} _frame
 	/// @param {function} callback
 	static SetFrameCallback = function( _frame = 0, callback ) {
-		if ( !is_undefined( callback ) ) {
+		if ( callback ) {
 			self.frames[_frame][1] = callback;
 		}
 		else {

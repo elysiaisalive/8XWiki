@@ -1,7 +1,6 @@
 global.__animoAnimationMap = {};
 
-globalvar __animoFallbackSprite;
-__animoFallbackSprite = __spr_animo_fallback;
+#macro __animoFallbackSprite __spr_animo_fallback
 
 globalvar __animoRegex;
 __animoRegex = ["spr_", "spr"];
