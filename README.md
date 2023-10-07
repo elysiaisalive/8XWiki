@@ -1,6 +1,11 @@
 
 <div align=center>  <h1> 8XLib v0.3.0 </h1>  </div>
 
+<div align="center">
+ <img src="https://img.shields.io/github/package-json/v/Dappermang/8XLib" />
+ <img src="https://img.shields.io/github/repo-size/Dappermang/8XLib" />
+</div>
+
 # Table of Contents
 
 - [Table of Contents](#table-of-contents)
