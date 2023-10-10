@@ -62,10 +62,10 @@ enum STATE {
 enum FLAG {
   FLAG1 = 1 << 0,
   FLAG2 = 2 << 0,
-  FLAG3 = 3 << 0,
-  FLAG4 = 4 << 0,
-  FLAG5 = 8 << 0,
-  FLAG6 = 16 << 0,
+  FLAG3 = 4 << 0,
+  FLAG4 = 8 << 0,
+  FLAG5 = 16 << 0,
+  FLAG6 = 32 << 0,
   //etc...
 }
 ```
