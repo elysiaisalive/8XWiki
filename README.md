@@ -9,6 +9,7 @@ Welcome to the 8XWiki! This repository is here to contain all of my libraries wi
 - [Table of Contents](#table-of-contents)
 - [Disclaimer](#disclaimer)
 - [Documentation](#documentation)
+- [Libraries](#libraries)
 - [Contributing](#contributing)
 
 # Disclaimer
@@ -18,12 +19,6 @@ Nearly everything in this repository is work-in-progress and undocumented, so no
 
 # Documentation
 [Documentation is work-in-progress, so please feel free to contribute](https://github.com/Dappermang/8XLib/wiki)</link>.
-
-# Installation
-Here's how to install:
-1. Download the latest <link>[release or prerelease](https://github.com/Dappermang/8XLib/releases)</link>.
-2. Open GameMaker
-3. Goto Tools -> Import Local Package
 
 # Libraries
 Modules are marked "released" or "unreleased" depending on if they are available in the GitHub release
