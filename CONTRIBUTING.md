@@ -50,6 +50,21 @@ fooBar = 0;
 var _local_variable = 0;
 ```
 
+Generally, anything that takes up global namespace and is not intended to be interacted with by the user regularly, should be prefixed by two underscores. This ensures it will not show up in searches.
+```GML
+// We are probably going to use this
+global.volume = 10;
+
+// This is MOST likely never going to be touched, so lets do something different.
+global.init_struct = {};
+
+// You don't HAVE to do it this way, I know globalvars are a legacy/deprecated feature, but I really like them for readability and they are intentionally different looking.
+globalvar __initStruct;
+__initStruct = {};
+// Something like this is totally valid.
+__global.init_struct = {}; 
+```
+
 # Enums and BitFlags
 Enums should always be uppercase, and use powers of 2 for each additional flag after the fourth.
 ```GML
