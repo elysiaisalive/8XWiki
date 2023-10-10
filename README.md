@@ -1,5 +1,8 @@
 
-<div align=center>  <h1> 8XLib v0.3.0 </h1>  </div>
+<div align=center>  <h1> 8XWiki </h1>  </div>
+
+# Welcome
+Welcome to the 8XWiki! This repository is here to contain all of my libraries wiki pages.
 
 # Table of Contents
 
