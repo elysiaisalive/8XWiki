@@ -9,12 +9,6 @@ Welcome to the 8XWiki! This repository is here to contain all of my libraries wi
 - [Table of Contents](#table-of-contents)
 - [Disclaimer](#disclaimer)
 - [Documentation](#documentation)
-- [Installation](#installation)
-- [Modules](#modules)
-  - [Clock](#clock)
-  - [Animo](#animo)
-  - [Submarine](#submarine)
-  - [AStar](#astar)
 - [Contributing](#contributing)
 
 # Disclaimer
@@ -31,46 +25,12 @@ Here's how to install:
 2. Open GameMaker
 3. Goto Tools -> Import Local Package
 
-# Modules
+# Libraries
 Modules are marked "released" or "unreleased" depending on if they are available in the GitHub release
 
-## Clock
-**Released** :white_check_mark:
+[Clockwork](https://github.com/Dappermang/Clockwork/tree/main)
 
-This module features;
-- Timers
-- Timer Controllers
-
-Timers are small structs that can be modified with a bunch of different options like randomized tick-rates, set time, callbacks etc.
-Timer controllers can be used to control groups of timers at once.
-
-## Animo
-**Released** :white_check_mark:
-
-This module features;
-- Lightweight animation structs that are highly modular.
-- Globally scoped animation map that you can store individual character animations in.
-- Auto adding animations to the global map based on GameMaker's asset tags.
-- Single, Looped and Chained animation types.
-	- Single: Will only animate once.
-	- Looped: Will animate based on an amount of iterations defined.
-	- Chained: Will animate based on iterations and switch to another defined animation once it reaches its maximum iterations.
-
-## Submarine
-**Prerelease** :hammer:
-
-This module features;
-- Event Handler
-- Event subscription and publication
-
-Objects or Structs can be subscribed to an event and when an event is published, a callback ( if defined ) will execute.
-
-## AStar
-**Unreleased** :interrobang:
-
-This module will feature;
-- AStar Grids
-- AStar Search
+[Animo](https://github.com/Dappermang/Animo/tree/main)
 
 ## Contributing
 Issues, PRs, Feature Requests are all welcome!
