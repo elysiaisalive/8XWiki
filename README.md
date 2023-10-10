@@ -13,8 +13,6 @@ Welcome to the 8XWiki! This repository is here to contain all of my libraries wi
 - [Contributing](#contributing)
 
 # Disclaimer
-<i>This library is intended for use with GameMaker Versions 2.3.X+ Don't come crying if it doesn't work on previous versions!</i>
-
 Nearly everything in this repository is work-in-progress and undocumented, so not every Module will be available yet. Feel free to contribute to make that faster!
 
 # Documentation
