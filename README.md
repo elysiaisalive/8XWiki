@@ -19,8 +19,6 @@ Nearly everything in this repository is work-in-progress and undocumented, so no
 [Documentation is work-in-progress, so please feel free to contribute](https://github.com/Dappermang/8XLib/wiki)</link>.
 
 # Libraries
-Modules are marked "released" or "unreleased" depending on if they are available in the GitHub release
-
 [Clockwork](https://github.com/Dappermang/Clockwork/tree/main)
 
 [Animo](https://github.com/Dappermang/Animo/tree/main)
