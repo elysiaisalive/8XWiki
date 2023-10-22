@@ -10,6 +10,8 @@ function cGUI() constructor {
     hoveredElement = undefined;
     mousePos = new Vector2( mouse_x, mouse_y );
     
+    static Init = function(){};
+    
     static Tick = function() {
         if ( mouse_x != mousePos.x 
         || mouse_y != mousePos.x ) {
@@ -22,6 +24,9 @@ function cGUI() constructor {
         var _offset = new Vector2( 0, 8 );
         
         draw_set_font( fntConsole );
+        for( var i = 0; i < array_length( containers ); ++i ) {
+            draw_text_transformed( 0, 0 + ( _offset.y * i ), $"{containers[i].label + "<-" + containers[i].children[i].label + "<-" + containers[i].children[i].children[i].label}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
+        }
         draw_text_transformed( mousePos.x + _offset.x, mousePos.y + _offset.y, $"X:{mousePos.x}\nY:{mousePos.y}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
     }
     
@@ -30,6 +35,7 @@ function cGUI() constructor {
         _container.label = _name;
         
         array_push( containers, _container );
+        return _container;
     }
     
     static GetContainerByName = function( _name ) {
@@ -37,11 +43,11 @@ function cGUI() constructor {
         var _result = false;
         
         for( var i = 0; i < array_length( containers ); ++i ) {
-            var _target_name = string_lower( i.label );
+            var _target_name = string_lower( containers[i].label );
             
             // We only retrieve one instance ( because why would you be naming multiple containers the same thing ... )
             if ( _target_name == _name_string ) {
-                _result = i;
+                _result = containers[i];
                 break;
             }
         }
@@ -102,24 +108,17 @@ function cGUI() constructor {
     ----------------------------
 */
 
-function cGUIPanel() constructor {
-    label = "";
-    parent = noone;
-    children = [];
-    
-    position = new Vector2( 0, 0 );
-}
-
 function cGUIContainer() constructor {
     label = "";
     children = [];
     
     static AddPanel = function( _name = "newPanel" ) {
-        var _panel = new cGUIContainer();
+        var _panel = new cGUIPanel();
         _panel.label = _name;
         _panel.parent = self;
         
         array_push( children, _panel );
+        return _panel;
     }
     
     static GetPanelByName = function( _name ) {
@@ -127,10 +126,10 @@ function cGUIContainer() constructor {
         var _result = false;
         
         for( var i = 0; i < array_length( children ); ++i ) {
-            var _target_name = string_lower( i.label );
+            var _target_name = string_lower( children[i].label );
             
             if ( _target_name == _name_string ) {
-                _result = i;
+                _result = children[i];
                 break;
             }
         }
@@ -139,12 +138,30 @@ function cGUIContainer() constructor {
     }
 }
 
+function cGUIPanel() constructor {
+    label = "";
+    parent = noone;
+    children = [];
+    
+    position = new Vector2( 0, 0 );
+    
+    static AddElement = function( _name = "newElement", _position = new Vector2( position.x + 0, position.y + 0 ) ) {
+        var _element = new cGUIContainer();
+        _element.label = _name;
+        _element.parent = self;
+        _element.position = _position;
+        
+        array_push( children, _element );
+        return _element;
+    }
+}
+
 function cGUIElement() constructor {
     label = "";// The 'name' of the element
     group = "";
+    parent = noone;
     
-    drawX = 0;
-    drawY = 0;
+    position = new Vector2( 0, 0 );
 }
 
 /// @desc Text that will be displayed
