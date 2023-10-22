@@ -68,6 +68,7 @@
     {"id":{"name":"cConsole","path":"scripts/cConsole/cConsole.yy",},},
     {"id":{"name":"__consoleMacros","path":"scripts/__consoleMacros/__consoleMacros.yy",},},
     {"id":{"name":"cAnimoMapEntry","path":"scripts/cAnimoMapEntry/cAnimoMapEntry.yy",},},
+    {"id":{"name":"animo_enable_trim_prefix","path":"scripts/animo_enable_trim_prefix/animo_enable_trim_prefix.yy",},},
     {"id":{"name":"initSystem","path":"scripts/initSystem/initSystem.yy",},},
     {"id":{"name":"animo_animation_exists","path":"scripts/animo_animation_exists/animo_animation_exists.yy",},},
     {"id":{"name":"objCat","path":"objects/objCat/objCat.yy",},},
