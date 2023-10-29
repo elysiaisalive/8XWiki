@@ -41,12 +41,23 @@ function cGameConfig() constructor {
         return _option_data;
     }
     
-    static Edit = function( category, name, new_value, new_min, new_max ) {
+    static EditOption = function( category, name, new_value, new_min, new_max ) {
         var _config = config[$ category];
         
         _config[$ name].value = new_value;
         _config[$ name].valueMin = new_min;
         _config[$ name].valueMax = new_max;
+        
+        return _config;
+    }
+    
+    static EditValue = function( category, name, new_value ) {
+        var _config = config[$ category];
+        
+        _config[$ name].value = new_value;
+        _config[$ name].value = clamp( _config[$ name].value, _config[$ name].valueMin, _config[$ name].valueMax );
+        
+        return _config;
     }
     
     static SaveConfig = function( _filename = "config.cfg", _path = working_directory ) {
@@ -63,6 +74,15 @@ function cGameConfig() constructor {
         catch(e) {
             show_debug_message( $"Failed to save :{_filename} at {_path}" );
         }
+        
+        return;
+    }
+    
+    static LoadConfig = function( filename ) {
+        var _config_buffer = buffer_load( filename );
+        
+        self.config = json_parse( buffer_read( _config_buffer, buffer_string ) );
+        buffer_delete( _config_buffer );
         
         return;
     }
