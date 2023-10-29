@@ -1,7 +1,5 @@
 console();
 resolution_manager();
 event_handler();
+settings();
 gui();
-gui().AddContainer();
-gui().GetContainerByName( "newContainer" ).AddPanel();
-gui().GetContainerByName( "newContainer" ).GetPanelByName( "newPanel" ).AddElement();

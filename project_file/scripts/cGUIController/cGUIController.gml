@@ -13,8 +13,8 @@ function cGUI() constructor {
     static Init = function(){};
     
     static Tick = function() {
-        if ( mouse_x != mousePos.x 
-        || mouse_y != mousePos.x ) {
+        if ( mousePos.x != mouse_x 
+        || mousePos.y != mouse_y ) {
             mousePos.x = mouse_x;
             mousePos.y = mouse_y;
         }
@@ -25,7 +25,7 @@ function cGUI() constructor {
         
         draw_set_font( fntConsole );
         for( var i = 0; i < array_length( containers ); ++i ) {
-            draw_text_transformed( 0, 0 + ( _offset.y * i ), $"{containers[i].label + "<-" + containers[i].children[i].label + "<-" + containers[i].children[i].children[i].label}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
+            //draw_text_transformed( 0, 0 + ( _offset.y * i ), $"{containers[i].label + "<-" + containers[i].children[i].label + "<-" + containers[i].children[i].children[i].label}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
         }
         draw_text_transformed( mousePos.x + _offset.x, mousePos.y + _offset.y, $"X:{mousePos.x}\nY:{mousePos.y}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
     }
@@ -145,8 +145,8 @@ function cGUIPanel() constructor {
     
     position = new Vector2( 0, 0 );
     
-    static AddElement = function( _name = "newElement", _position = new Vector2( position.x + 0, position.y + 0 ) ) {
-        var _element = new cGUIContainer();
+    static AddElement = function( _name = "newElement", _type = new cGUIElement(), _position = new Vector2( position.x + 0, position.y + 0 ) ) {
+        var _element = _type;
         _element.label = _name;
         _element.parent = self;
         _element.position = _position;
@@ -161,11 +161,25 @@ function cGUIElement() constructor {
     group = "";
     parent = noone;
     
+    valueMin = 0;
+    valueMax = 0;
+    value = -1;
+    
     position = new Vector2( 0, 0 );
 }
 
 /// @desc Text that will be displayed
 function cGUIElementText() : cGUIElement() constructor {}
+
+/// @desc Slider.
+function cGUIElementSlider() : cGUIElement() constructor {
+    // Slider moves by 1 integer by default.
+    step = 1;
+
+    valueMin = 0;
+    valueMax = 100;
+    value = -1;
+}
 
 /*
 
@@ -179,6 +193,7 @@ function cGUIElementText() : cGUIElement() constructor {}
 */
 
 
+// Potentially will just be a camera? ( think gmod rtCameras where you can display what a camera is viewing onto a screen )
 function cGUIViewport() constructor {
     width = __GAME_WIDTH;
     height = __GAME_HEIGHT;
