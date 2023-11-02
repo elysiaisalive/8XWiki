@@ -31,6 +31,15 @@ function cGUI() constructor {
             }
         }
         
+        for( var i = 0; i < array_length( containers ); ++i ) {
+            for( var j = 0; j < array_length( containers[i].children ); ++j ) {
+                for( var k = 0; k < array_length( containers[i].children[j].children ); ++k ) {
+                    draw_set_font( -1 );
+                    draw_text_transformed( 0 + ( 16 * ( i + j + k ) ), 0 + ( 8 * ( i + j + k ) ), $"{containers[i].label} <- {containers[i].children[j].label} <- {containers[i].children[j].children[k].label}", 0.5, 0.5, 0 );
+                }
+            }
+        }
+        
         draw_set_font( fntConsole );
         draw_text_transformed( mousePos.x + _offset.x, mousePos.y + _offset.y, $"X:{mousePos.x}\nY:{mousePos.y}", 0.05, 0.05, 0 );
         draw_set_color( c_lime );
@@ -162,6 +171,7 @@ function cGUIPanel() constructor {
     children = [];
     
     debugData = {
+        draw : true,
         colour : make_color_rgb( 255, 0, 0 ),
         outline : true
     };
@@ -186,11 +196,13 @@ function cGUIPanel() constructor {
         var _x2 = _x + ( width * transform.scale.x );
         var _y2 = _y + ( height * transform.scale.x );
         
-        if ( width > 0 
-        && height > 0 ) {
-            draw_set_color( debugData.colour );
-            draw_rectangle( _x, _y, _x2, _y2, debugData.outline );
-            draw_reset();
+        if ( debugData.draw ) {
+            if ( width > 0 
+            && height > 0 ) {
+                draw_set_color( debugData.colour );
+                draw_rectangle( _x, _y, _x2, _y2, debugData.outline );
+                draw_reset();
+            }
         }
     }
 }
