@@ -23,11 +23,19 @@ function cGUI() constructor {
     static DrawDebug = function() {
         var _offset = new Vector2( 0, 8 );
         
-        draw_set_font( fntConsole );
+        guiCamera( __GAME_WIDTH, __GAME_HEIGHT );
+        
         for( var i = 0; i < array_length( containers ); ++i ) {
-            //draw_text_transformed( 0, 0 + ( _offset.y * i ), $"{containers[i].label + "<-" + containers[i].children[i].label + "<-" + containers[i].children[i].children[i].label}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
+            for( var j = 0; j < array_length( containers[i].children ); ++j ) {
+                containers[i].children[j].DrawDebug();
+            }
         }
-        draw_text_transformed( mousePos.x + _offset.x, mousePos.y + _offset.y, $"X:{mousePos.x}\nY:{mousePos.y}", 0.05 * global.camera.camScale, 0.05 * global.camera.camScale, 0 );
+        
+        draw_set_font( fntConsole );
+        draw_text_transformed( mousePos.x + _offset.x, mousePos.y + _offset.y, $"X:{mousePos.x}\nY:{mousePos.y}", 0.05, 0.05, 0 );
+        draw_set_color( c_lime );
+        draw_rectangle( mousePos.x, mousePos.y, mousePos.x + 1, mousePos.y + 1, false );
+        draw_reset();
     }
     
     static AddContainer = function( _name = "newContainer" ) {
@@ -87,6 +95,16 @@ function cGUI() constructor {
     Panels and Elements however, do have properties, positions and even functions.
     Element positions are always relative to their parent panel coordinates.
     
+    !!! Everything is drawn in the draw-end event !!!
+    
+    -DRAW EVENT ORDER-
+        pre-draw    <- App surface configuration
+        draw-begin  <- Draw setup stuff
+        draw        <- Worldspace stuff
+        draw-end    <- GUI
+        post-draw   <- Post processing
+    ------------------
+    
     This will now look like;
     gui------------------------
         container-------------------
@@ -143,9 +161,16 @@ function cGUIPanel() constructor {
     parent = noone;
     children = [];
     
-    position = new Vector2( 0, 0 );
+    debugData = {
+        colour : make_color_rgb( 255, 0, 0 ),
+        outline : true
+    };
     
-    static AddElement = function( _name = "newElement", _type = new cGUIElement(), _position = new Vector2( position.x + 0, position.y + 0 ) ) {
+    transform = new cTransform2D();
+    width = 0;
+    height = 0;
+    
+    static AddElement = function( _name = "newElement", _type = new cGUIElement(), _position = new Vector2( transform.position.x + 0, transform.position.y + 0 ) ) {
         var _element = _type;
         _element.label = _name;
         _element.parent = self;
@@ -153,6 +178,45 @@ function cGUIPanel() constructor {
         
         array_push( children, _element );
         return _element;
+    }
+    
+    static DrawDebug = function() {
+        var _x = transform.position.x;
+        var _y = transform.position.y;
+        var _x2 = _x + ( width * transform.scale.x );
+        var _y2 = _y + ( height * transform.scale.x );
+        
+        if ( width > 0 
+        && height > 0 ) {
+            draw_set_color( debugData.colour );
+            draw_rectangle( _x, _y, _x2, _y2, debugData.outline );
+            draw_reset();
+        }
+    }
+}
+
+function draw_reset() {
+    draw_set_color( c_white );
+    draw_set_alpha( 1 );
+}
+
+function cTransform2D() constructor {
+    self.position = new Vector2( 0, 0 );
+    self.scale = new Vector2( 1, 1 );
+    self.angle = 0;
+    
+    static SetNewPos = function( x = 0, y = 0 ) {
+        self.position = new Vector2( x, y );
+    }
+}
+
+function cTransform3D() constructor {
+    self.origin = new Vector3( 0, 0, 0 );
+    self.rotation = new Vector3( 0, 0, 0 );
+    self.scale = new Vector3( 0, 0, 0 );
+    
+    static SetNewPos = function( x = 0, y = 0, z = 0 ) {
+        self.origin = new Vector3( x, y, z );
     }
 }
 

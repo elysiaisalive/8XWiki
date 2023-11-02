@@ -57,6 +57,7 @@
     {"id":{"name":"spr_guy_is_sprite","path":"sprites/spr_guy_is_sprite/spr_guy_is_sprite.yy",},},
     {"id":{"name":"animo_init_looped","path":"scripts/animo_init_looped/animo_init_looped.yy",},},
     {"id":{"name":"cTimerController","path":"scripts/cTimerController/cTimerController.yy",},},
+    {"id":{"name":"guiCamera","path":"scripts/guiCamera/guiCamera.yy",},"order":0,},
     {"id":{"name":"sprSharkSegments","path":"sprites/sprSharkSegments/sprSharkSegments.yy",},},
     {"id":{"name":"sprChicken","path":"sprites/sprChicken/sprChicken.yy",},},
     {"id":{"name":"audTest","path":"sounds/audTest/audTest.yy",},},
