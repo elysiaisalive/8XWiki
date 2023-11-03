@@ -183,6 +183,31 @@ function cGUIPanel() constructor {
     width = 0;
     height = 0;
     
+    static GetPanelByName = function( _name ) {
+        var _name_string = string_lower( _name );
+        var _result = false;
+        
+        for( var i = 0; i < array_length( children ); ++i ) {
+            var _target_name = string_lower( children[i].label );
+            
+            if ( _target_name == _name_string ) {
+                _result = children[i];
+                break;
+            }
+        }
+        
+        return _result;
+    }
+    
+    static AddPanel = function( _name = "embeddedPanel" ) {
+        var _panel = new cGUIPanel();
+        _panel.label = _name;
+        _panel.parent = self;
+        
+        array_push( children, _panel );
+        return _panel;
+    }
+    
     static AddElement = function( _name = "newElement", _type = new cGUIElement(), _position = new Vector2( transform.position.x + 0, transform.position.y + 0 ) ) {
         var _element = _type;
         _element.label = _name;
