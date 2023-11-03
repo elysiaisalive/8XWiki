@@ -3,11 +3,14 @@ function gui() {
     static guiPanel = new cGUI();
     return guiPanel;
 }
- 
+
 function cGUI() constructor {
     containers = [];
-    focusedElement = undefined;
-    hoveredElement = undefined;
+    focusedElement = noone;
+    hoveredElement = noone;
+    focusedPanel = noone;
+    hoveredContainer = noone;
+    
     mousePos = new Vector2( mouse_x, mouse_y );
     
     static Init = function(){};
@@ -184,7 +187,7 @@ function cGUIPanel() constructor {
         var _element = _type;
         _element.label = _name;
         _element.parent = self;
-        _element.position = _position;
+        _element.transform.position = _position;
         
         array_push( children, _element );
         return _element;
@@ -241,7 +244,10 @@ function cGUIElement() constructor {
     valueMax = 0;
     value = -1;
     
-    position = new Vector2( 0, 0 );
+    transform = new cTransform2D();
+    
+    // Function is called every step. Used for input detection.
+    static Listen = function() {};
 }
 
 /// @desc Text that will be displayed

@@ -8,6 +8,14 @@
             setting:value
         }
     }
+        
+    { 
+        volume : { 
+            master : { value : 0, valueMin : 0, valueMax : 0 }, 
+            music : { value : 0, valueMin : 0, valueMax : 0 }, 
+            sfx : { value : 0, valueMin : 0, valueMax : 0 } 
+            }
+    }
     
     Adding / Init new settings
     
@@ -60,19 +68,29 @@ function cGameConfig() constructor {
         return _config;
     }
     
-    static SaveConfig = function( _filename = "config.cfg", _path = working_directory ) {
+    static SaveConfig = function( _filename = "config.cfg", _path = environment_get_variable( "APPDATA" ) + @"\.8xlib\" ) {
         var _config_json = json_stringify( config );
         var _temp_buffer = buffer_create( 0, buffer_grow, 1 );
+        
+        print( self.config );
+        
+        struct_foreach( self.config, function( i ) {
+            switch( typeof( i ) ) {
+                case "number":
+                    buffer_write( _temp_buffer, buffer_u64, i );
+                    break;
+            }
+        } );
         
         try {
             buffer_write( _temp_buffer, buffer_string, _config_json );
             buffer_save( _temp_buffer, _filename );
             buffer_delete( _temp_buffer );
             
-            show_debug_message( $"Save success! Saved :{_filename} at {_path}" );
+            show_debug_message( $"Save success! Saved: {_filename} at {_path}" );
         }
         catch(e) {
-            show_debug_message( $"Failed to save :{_filename} at {_path}" );
+            show_debug_message( $"Failed to save: {_filename} at {_path}" );
         }
         
         return;
@@ -88,9 +106,7 @@ function cGameConfig() constructor {
     }
 }
 
-function cConfigCategory() constructor {
-
-}
+function cConfigCategory() constructor {};
 
 function cConfigOption() constructor {
     value = 0;

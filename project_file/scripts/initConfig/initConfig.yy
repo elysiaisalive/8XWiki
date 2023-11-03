@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "cGameConfig",
+  "name": "initConfig",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "EZConfig",
-    "path": "folders/Libraries/EZConfig.yy",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
 }
