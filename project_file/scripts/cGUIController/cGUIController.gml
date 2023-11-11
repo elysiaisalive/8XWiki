@@ -172,6 +172,8 @@ function cGUIPanel() constructor {
     label = "";
     parent = noone;
     children = [];
+    active = true;
+    visible = true;
     
     debugData = {
         draw : true,
@@ -264,19 +266,41 @@ function cGUIElement() constructor {
     label = "";// The 'name' of the element
     group = "";
     parent = noone;
+    active = true;
+    visible = true;
     
     valueMin = 0;
     valueMax = 0;
     value = -1;
     
     transform = new cTransform2D();
+    width = 0;
+    height = 0;
     
     // Function is called every step. Used for input detection.
-    static Listen = function() {};
+    static Listen = function() {
+        if ( point_in_rectangle( mouse_x, mouse_y, transform.x, transform.y, transform.x + width, transform.y + height ) ) {
+            //
+            if ( mouse_check_button( mb_left ) ) {
+                OnPress();
+            }
+        }
+    };
+    
+    static OnPress = function(){};
+    static OnFocus = function() {};
+    
+    static Draw = function(){};
 }
 
 /// @desc Text that will be displayed
-function cGUIElementText() : cGUIElement() constructor {}
+function cGUIElementText() : cGUIElement() constructor {
+    value = "";
+    
+    static Draw = function() {
+        draw_text( transform.x, transform.y, value );
+    }
+}
 
 /// @desc Slider.
 function cGUIElementSlider() : cGUIElement() constructor {
