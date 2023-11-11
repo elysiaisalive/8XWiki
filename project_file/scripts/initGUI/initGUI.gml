@@ -7,5 +7,4 @@ gui().GetContainerByName( "newContainer" ).AddPanel( "newPanel" ).AddPanel();
 // Adds an embedded element into 'embeddedPanel'
 gui().GetContainerByName( "newContainer" ).GetPanelByName( "newPanel" ).GetPanelByName( "embeddedPanel" );
 
-gui().GetContainerByName( "newContainer" ).GetPanelByName( "newPanel" ).AddElement();
-gui().GetContainerByName( "newContainer" ).GetPanelByName( "newPanel" ).AddElement( "newElement2" );
+gui().GetContainerByName( "newContainer" ).GetPanelByName( "newPanel" ).AddElement( "newElement2", new cGUIElementText() );
