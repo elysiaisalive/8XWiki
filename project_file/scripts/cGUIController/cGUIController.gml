@@ -9,6 +9,7 @@ function cGUI() constructor {
     focusedElement = noone;
     hoveredElement = noone;
     focusedPanel = noone;
+    hoveredPanel = noone;
     hoveredContainer = noone;
     
     mousePos = new Vector2( mouse_x, mouse_y );
@@ -146,6 +147,7 @@ function cGUIContainer() constructor {
         var _panel = new cGUIPanel();
         _panel.label = _name;
         _panel.parent = self;
+        _panel.isChild = true;
         
         array_push( children, _panel );
         return _panel;
@@ -172,6 +174,7 @@ function cGUIPanel() constructor {
     label = "";
     parent = noone;
     children = [];
+    isChild = false;
     active = true;
     visible = true;
     
@@ -184,6 +187,32 @@ function cGUIPanel() constructor {
     transform = new cTransform2D();
     width = 0;
     height = 0;
+    
+    static SetBounds = function( _width = width, _height = height ) {
+        width = _width;
+        height = _height;
+        
+        return self;
+    }
+    
+    static OnHover = function() {}
+    
+    static MouseOnPanel = function() {
+        var _mouseCollisionCheck = point_in_rectangle( 
+            device_mouse_x_to_gui(0), 
+            device_mouse_y_to_gui(0), 
+            transform.position.x, 
+            transform.position.y, 
+            transform.position.x + width,
+            transform.position.y + height,
+        );
+        
+        if ( _mouseCollisionCheck ) {
+            OnHover();
+        }
+        
+        return _mouseCollisionCheck;
+    }
     
     static GetPanelByName = function( _name ) {
         var _name_string = string_lower( _name );
@@ -277,6 +306,14 @@ function cGUIElement() constructor {
     width = 0;
     height = 0;
     
+    // Converts the elements value to something else.
+    static ConvertValue = function( _value ) {
+        switch( typeof( _value ) ) {
+            case "" :
+                break;
+        }
+    }
+    
     // Function is called every step. Used for input detection.
     static Listen = function() {
         if ( point_in_rectangle( mouse_x, mouse_y, transform.x, transform.y, transform.x + width, transform.y + height ) ) {
@@ -287,6 +324,7 @@ function cGUIElement() constructor {
         }
     };
     
+    static OnHovered = function() {};
     static OnPress = function(){};
     static OnFocus = function() {};
     
