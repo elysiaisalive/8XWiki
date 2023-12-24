@@ -11,7 +11,7 @@ function cAnimoAnimation() constructor {
         enterConditions
         exitConditions
     */
-    enterConditions =[];
+    enterConditions = [];
     exitConditions = [];
     repeats = 0;
     repeatsCompleted = 0;
@@ -69,7 +69,39 @@ function cAnimoSequence() constructor {
         
         return _result;
     }
-    static Add = function( animation ) {
+    /// @param {struct} animation
+    /// @param {array[function]} ?conditions
+    static AddAnim = function( animation, _conditions = [] ) {
+		if ( !is_undefined( _conditions ) ) {
+	    	for( var i = 0; i < array_length( _conditions ); ++i ) {
+	    		if ( !is_callable( _conditions[i] ) ) {
+	    			show_error( $"One or more conditions were not a valid function!", true );
+	    		}
+	    		
+	    		animation.AddEnterCondition( _conditions[i] );
+			}
+		}
+    	
+        array_push( animations, animation );
+        return self;
+    } 
+    /// @param {struct} animation
+    /// @param {int} loop count
+    /// @param {array[function]} ?conditions
+    static AddLoop = function( animation, _loopAmount = -1, _conditions = [] ) {
+    	animation.SetAnimType( ANIMO_TYPE.LOOPED );
+    	animation.SetRepeats( ( _loopAmount > -1 ) ? 0 : _loopAmount );
+    	
+		if ( !is_undefined( _conditions ) ) {
+	    	for( var i = 0; i < array_length( _conditions ); ++i ) {
+	    		if ( !is_callable( _conditions[i] ) ) {
+	    			show_error( $"One or more conditions were not a valid function!", true );
+	    		}
+	    		
+	    		animation.AddEnterCondition( _conditions[i] );
+			}
+		}
+    	
         array_push( animations, animation );
         return self;
     }
@@ -88,13 +120,13 @@ function cAnimoSequence() constructor {
 }
 
 function testSequence() {
-    animation = new cAnimoAnimation()
-    .AddExitCondition( function() {
-        var _bool = false;
-        
-        return _bool;
-    } );
+	testCondition = function() {
+		return true;
+	}
+	
+    animation = new cAnimoAnimation();
     
     animationSequence = new cAnimoSequence()
-    .Add( animation );
+    .AddAnim( animation, [testCondition] )
+    .AddLoop( animation, 0, [testCondition] );
 }
